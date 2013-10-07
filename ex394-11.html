@@ -1,0 +1,293 @@
+<html>
+    <head>
+    </head>
+    <body>
+
+<script id="rus11hStyles" type="text/css">
+    #rus11h {
+        color: #333;
+        font-family: Arial, sans-serif;
+        font-size: 12pt;
+        width: 600px;
+        margin: auto;
+        }
+
+    #rus11h #note {
+        padding: 0.7em 1em;
+        background-color: rgb(255, 255, 204);
+        color: rgb(0, 0, 153);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        margin-bottom: 2em;
+        }
+
+    #rus11h .author:before {
+        content: '(';
+        font-style: normal;
+        }
+
+    #rus11h .author:after {
+        content: ')';
+        font-style: normal;
+        }
+
+    #rus11h .author {
+        font-style: italic;
+        }
+
+    #rus11h p {
+        line-height: 2em;
+        margin-top: 2em;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        }
+    #rus11h p b {
+        font-weight: normal;
+        cursor: pointer;
+        position: relative;
+    }
+
+    #rus11h p.showAnswers i.correct,
+    #rus11h p.showAnswers i.incorrect {
+        background-color: transparent !important;
+    }
+    #rus11h p.showAnswers b.correct,
+    #rus11h p.showAnswers b.incorrect {
+        background-color: #c1cc89;
+        color: #5e7703 !important;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        padding: 0 0.3em;
+        color: white;
+    }
+    #rus11h p.showAnswers b.incorrect {
+        background-color: #eac3b8;
+        color: rgb(176, 102, 96) !important;
+    }
+
+    #rus11h p i {
+        font-style: normal;
+        cursor: pointer;
+        position: relative;
+    }
+    #rus11h p i.comma {
+        color: #ca8f42;
+        }
+
+    #rus11h p:not(.showAnswers) b:hover {
+        background-color: #5e7703;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        color: white;
+        padding: 0 4px;
+        margin: 0 -4px;
+        }
+    #rus11h p:not(.showAnswers) b.underlined:hover {
+        background-color: #ca8f42;
+        }
+    #rus11h p:not(.showAnswers) i i {
+        position: absolute;
+        width: 0;
+        height: 0;
+        display: block;
+        bottom: -10px;
+        left: -4px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 10px solid #c1cc89;
+        }
+    #rus11h p.showAnswers i.incorrect i,
+    #rus11h p.showAnswers i.correct i {
+        position: absolute;
+        width: 0;
+        height: 0;
+        display: block;
+        bottom: -10px;
+        left: -4px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 10px solid #5e7703;
+        }
+    #rus11h p.showAnswers i.incorrect i {
+        border-bottom-color: rgb(176, 102, 96);
+        }
+    #rus11h p i.comma i {
+        border-bottom-color: #f9d3a5;
+        }
+    #rus11h p b canvas {
+        position: absolute;
+        height: 10px;
+        bottom: -7px;
+        width: 100%;
+        right: 0;
+        left: 0;
+        }
+    #rus11h p b:hover canvas {
+        visibility: hidden;
+        }
+    #rus11h span.subquestion,
+    #rus11h p q {
+        display: none;
+        }
+</script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+    var txt = $('#rus11hStyles').text();
+    document.write('<style>' + txt + '</style>');
+</script>
+
+<div id="rus11h">
+
+    <p
+        ><b>В</b><q>         {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>Мещерском</b><q> {5:SA:%100%X}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>крае</b><q>      {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>можно</b><q>     {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>увидеть</b><q>   {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>лесные</b><q>    {5:SA:%100%X}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>озера</b><q>     {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>с</b><q>         {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>темной</b><q>    {5:SA:%100%X}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>водой</b><q>     {1:SA:%100%_}    </q><i> </i><q>     {5:SA:%100%X}   </q
+        ><b>обширные</b><q>  {5:SA:%100%X}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>болота</b><q>    {1:SA:%100%_}    </q><i> </i><q>     {5:SA:%100%X}   </q
+        ><b>покрытые</b><q>  {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>ольхой</b><q>    {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>и</b><q>         {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>осиной</b><q>    {1:SA:%100%_}    </q><i> </i><q>     {5:SA:%100%X}   </q
+        ><b>одинокие</b><q>  {5:SA:%100%X}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>обугленные</b><q>{1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>от</b><q>        {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>старости</b><q>  {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>избы</b><q>      {1:SA:%100%_}    </q><i> </i><q>     {1:SA:%100%_}   </q
+        ><b>лесников</b><q>  {1:SA:%100%_}    </q>.
+
+        <span class="author">Пауст.</span>
+    </p>
+
+</div><!-- #rus11h -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+
+<script type="application/javascript">
+    $('#rus11h p').mouseenter(function(){
+        $(this).children('i').append('<i></i>');
+    }).mouseleave(function(){
+        $(this).find('i i').remove();
+    });
+
+    $('#rus11h p > b, #rus11h p > i').click(function(){
+        var x = $(this),
+            input = x.next('q').find('input[type="text"]');
+        if (input.attr('value') === '_') {
+            input.attr('value', 'X');
+        } else {
+            input.attr('value', '_');
+        }
+    });
+
+    $('#rus11h p > b').click(function(){
+        var x = $(this),
+            cnvs = x.find('canvas')[0];
+        if (cnvs) {
+            cnvs.remove();
+            x.removeClass('underlined');
+            return;
+        } else {
+            x.addClass('underlined');
+            cnvs = x.append('<canvas></canvas>').find('canvas')[0];
+        }
+
+        var ctx = cnvs.getContext('2d'),
+            width = cnvs.clientWidth,
+            hRadius = 3.5,
+            vRadius = 2.5,
+            startX = hRadius * -3;
+        cnvs.width = width;
+        cnvs.height = '10';
+        ctx.strokeStyle = '#ca8f42';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(startX, vRadius + 1);
+        for (var i = startX; i < width; i += hRadius * 4) {
+            ctx.bezierCurveTo(i, 1,
+                              i + hRadius * 2, 1,
+                              i + hRadius * 2, vRadius + 1);
+            ctx.bezierCurveTo(i + hRadius * 2, 2 * vRadius + 1,
+                              i + hRadius * 4, 2*vRadius + 1,
+                              i + hRadius * 4, vRadius + 1);
+        }
+        ctx.stroke();
+    });
+
+    $('#rus11h p i').click(function(){
+        var txt = $(this).text();
+        if (txt.replace(/\s*/g, '')) {
+            $(this).text(' ');
+            $(this).removeClass('comma');
+        } else {
+            $(this).text(', ');
+            $(this).addClass('comma');
+        }
+    });
+
+</script>
+
+
+<script>
+    $('#rus11h p q')
+        .replaceWith('<q><span class="subquestion">' +
+                     '<input type="text" class="incorrect" value="_"/></span></q>');
+</script>
+
+
+<script>
+    $('#rus11h p input[type="text"]').each(function(){
+        var x = $(this);
+        if (!x.attr('value')) {
+            x.attr('value', '_');
+        }
+    });
+
+    $(document).ready(function(){
+        function doIt() {
+            var showAnswers = $('#rus11h input.correct, #rus11h input.incorrect').length;
+            if (showAnswers) {
+                $('#rus11h p')
+                    .addClass('showAnswers')
+                    .off('mouseenter mouseleave');
+                $('#rus11h p > b').each(function(){
+                    var b = $(this),
+                        input = b.next('q').find('input[type="text"]').first();
+                    if (input.hasClass('correct') && input.attr('value') === 'X') {
+                        b.addClass('correct');
+                    } else if (input.hasClass('incorrect')) {
+                        b.addClass('incorrect');
+                    }
+                });
+                $('#rus11h p > i').each(function(){
+                    var i = $(this),
+                        input = i.next('q').find('input[type="text"]').first();
+                    if (input.hasClass('correct') && input.attr('value') === 'X') {
+                        i.html(', <i></i>');
+                        i.addClass('correct');
+                    } else if (input.hasClass('incorrect')) {
+                        if (input.attr('value') === 'X') {
+                            i.html(', <i></i>');
+                        } else {
+                            i.append('<i></i>');
+                        }
+                        i.addClass('incorrect');
+                    }
+                });
+            }
+        }
+        setTimeout(doIt, 1000);
+    });
+</script>
+
+    </body>
+</html>
