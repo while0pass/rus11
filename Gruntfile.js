@@ -3,6 +3,7 @@ module.exports = function (grunt) {
   var path = require('path');
 
   grunt.initConfig({
+
     jinja: {
       options: {
         templateDirs: [
@@ -31,6 +32,7 @@ module.exports = function (grunt) {
         }]
       },
     },
+
     autoprefixer: {
       options: {
         browsers: ['> 1%', 'last 3 versions']
@@ -38,14 +40,25 @@ module.exports = function (grunt) {
       html: {
         expand: true,
         flatten: true,
-        src:  'css/*.css',
+        src:  ['css/*.css', '.styl/*.css'],
         dest: '.css/'
       },
     },
+
+    stylus: {
+        styl: {
+            expand: true,
+            cwd: 'css',
+            src: '*.styl',
+            dest: '.styl/',
+        }
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-jinja');
   grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
 
-  grunt.registerTask('default', ['autoprefixer', 'jinja']);
+  grunt.registerTask('default', ['stylus', 'autoprefixer', 'jinja']);
 }

@@ -4,6 +4,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-jinja": "~0.3.0",
-    "grunt-autoprefixer": "~0.3.0"
+    "grunt-autoprefixer": "~0.3.0",
+    "grunt-contrib-stylus": "~0.8.0"
   }
 }
