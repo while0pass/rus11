@@ -3,7 +3,7 @@
 
 {% block header %}
 <?xml version="1.0" encoding="UTF-8"?>
-<quiz>{% include 'head.inc' %}
+<quiz>
 
   <question type="category">
     <category>
