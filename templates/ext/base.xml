@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  {% set CSS = 'ex' + EXERCISE + '.css' %}
+  {% set QUIZ = 'ex' + EXERCISE + '.inc' %}
+
+  <question type="category">
+    <category>
+        <text>$course$/{% block category %}iquizzes{% endblock %}</text>
+    </category>
+  </question>
+
+  <question type="cloze">
+    <name>
+        <text>Упр. {{ EXERCISE }}</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[
+
+            {% include 'body.inc' %}
+
+        ]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+  </question>
+
+</quiz>

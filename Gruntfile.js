@@ -6,18 +6,29 @@ module.exports = function (grunt) {
     jinja: {
       options: {
         templateDirs: [
-          path.join(process.cwd(), 'templates'),
-          path.join(process.cwd(), 'quizzes'),
+          path.join(process.cwd(), 'templates/ext'),
+          path.join(process.cwd(), 'templates/inc'),
+          path.join(process.cwd(), 'templates/quizzes'),
+          path.join(process.cwd(), 'templates/nnj'),
+          path.join(process.cwd(), 'js'),
           path.join(process.cwd(), '.css'),
         ]
       },
       html: {
-        files: [{ expand: true, dest: '.html/',
-                  cwd: 'templates/', src: ['*.html'] }]
+        files: [{
+          expand: true,
+          cwd: 'templates/nnj',
+          src: ['*.html'],
+          dest: '.html/',
+        }]
       },
       xml: {
-        files: [{ expand: true, dest: '.xml/',
-                  cwd: 'templates/', src: ['*.xml'] }]
+        files: [{
+          expand: true,
+          cwd: 'templates/nnj',
+          src: ['*.xml'],
+          dest: '.xml/',
+        }]
       },
     },
     autoprefixer: {
@@ -34,7 +45,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-jinja');
-  grunt.loadNpmTasks('grunt-autoprefixer')
+  grunt.loadNpmTasks('grunt-autoprefixer');
 
   grunt.registerTask('default', ['autoprefixer', 'jinja']);
 }

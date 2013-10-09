@@ -1,0 +1,5 @@
+{% set EXERCISE = '394' %}
+
+{% extends 'base.xml' %}
+{% block category %}iquizzes{% endblock %}
+{% set JS = ['1', '2'] %}
