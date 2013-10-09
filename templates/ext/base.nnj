@@ -1,0 +1,6 @@
+{% block settings %}{% endblock %}
+{% set CSS = 'ex' + EXERCISE + '.css' %}
+{% set QUIZ = 'ex' + EXERCISE + (('-' + SENTENCE) if SENTENCE else '') + '.inc' %}
+{% block header %}{% endblock %}
+{% include 'body.inc' %}
+{% block footer %}{% endblock %}

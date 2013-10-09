@@ -1,13 +1,12 @@
-<html>
-    <head>
+{% extends 'base.nnj' %}
 
-        {% set CSS = 'ex' + EXERCISE + '.css' %}
-        {% set QUIZ = 'ex' + EXERCISE + '.inc' %}
+{% block header -%}
+    <html>
+        <head></head>
+        <body>
+{%- endblock %}
 
-    </head>
-    <body>
-
-        {% include 'body.inc' %}
-
-    </body>
-</html>
+{% block header -%}
+        </body>
+    </html>
+{%- endblock %}
