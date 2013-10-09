@@ -1,0 +1,9 @@
+{
+  "name": "rus11",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-jinja": "~0.3.0",
+    "grunt-autoprefixer": "~0.3.0"
+  }
+}
