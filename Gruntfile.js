@@ -16,20 +16,16 @@ module.exports = function (grunt) {
         ]
       },
       html: {
-        files: [{
           expand: true,
           cwd: 'templates/nnj',
-          src: ['*.html'],
+          src: '*.html',
           dest: '.html/',
-        }]
       },
       xml: {
-        files: [{
           expand: true,
           cwd: 'templates/nnj',
-          src: ['*.xml'],
+          src: '*.xml',
           dest: '.xml/',
-        }]
       },
     },
 
@@ -37,7 +33,7 @@ module.exports = function (grunt) {
       options: {
         browsers: ['> 1%', 'last 3 versions']
       },
-      html: {
+      css: {
         expand: true,
         flatten: true,
         src:  ['css/*.css', '.styl/*.css'],
