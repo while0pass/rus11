@@ -7,26 +7,26 @@ module.exports = function (grunt) {
     jinja: {
       options: {
         templateDirs: [
-          path.join(process.cwd(), 'templates/ext'),
-          path.join(process.cwd(), 'templates/inc'),
-          path.join(process.cwd(), 'templates/quizzes'),
-          path.join(process.cwd(), 'templates/nnj'),
+          path.join(process.cwd(), 'templates/ext/'),
+          path.join(process.cwd(), 'templates/inc/'),
+          path.join(process.cwd(), 'templates/quizzes/'),
+          path.join(process.cwd(), 'templates/nnj/'),
           path.join(process.cwd(), 'js'),
-          path.join(process.cwd(), '.css'),
+          path.join(process.cwd(), '.temp/css/'),
         ],
-        contextRoot: path.join(process.cwd(), 'templates/context'),
+        contextRoot: path.join(process.cwd(), 'templates/context/'),
       },
       html: {
           expand: true,
           cwd: 'templates/nnj',
           src: '*.html',
-          dest: '.html/',
+          dest: '.temp/html/',
       },
       xml: {
           expand: true,
           cwd: 'templates/nnj',
           src: '*.xml',
-          dest: '.xml/',
+          dest: 'build/',
       },
     },
 
@@ -37,8 +37,8 @@ module.exports = function (grunt) {
       css: {
         expand: true,
         flatten: true,
-        src:  ['css/*.css', '.styl/*.css'],
-        dest: '.css/'
+        src:  ['css/*.css', '.temp/stylus2css/*.css'],
+        dest: '.temp/css/',
       },
     },
 
@@ -47,7 +47,8 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'css',
             src: '*.styl',
-            dest: '.styl/',
+            dest: '.temp/stylus2css/',
+            ext: '.css',
         }
     },
 
