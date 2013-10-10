@@ -52,11 +52,17 @@ module.exports = function (grunt) {
         }
     },
 
+    clean: {
+        temp: ['.temp/'],
+        build: ['build/'],
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-jinja');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-stylus');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('default', ['stylus', 'autoprefixer', 'jinja']);
 }
