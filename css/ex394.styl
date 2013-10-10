@@ -1,0 +1,122 @@
+#rus11h
+    color: #333
+    font-family: Arial, sans-serif
+    font-size: 12pt
+    margin: auto
+
+
+    #note
+        padding: 0.7em 1em
+        background-color: rgb(255, 255, 204)
+        color: rgb(0, 0, 153)
+        border-radius: 10px
+        margin-bottom: 2em
+
+
+    .author:before
+        content: '('
+        font-style: normal
+
+
+    .author:after
+        content: ')'
+        font-style: normal
+
+
+    .author
+        font-style: italic
+
+
+    p
+        line-height: 2em
+        margin-top: 2em
+        user-select: none
+
+    p b
+        font-weight: normal
+        cursor: pointer
+        position: relative
+
+
+    p.showAnswers i.correct,
+    p.showAnswers i.incorrect
+        background-color: transparent !important
+
+    p.showAnswers b.correct,
+    p.showAnswers b.incorrect
+        background-color: #c1cc89
+        color: #5e7703 !important
+        -webkit-border-radius: 3px
+        border-radius: 3px
+        padding: 0 0.3em
+        color: white
+
+    p.showAnswers b.incorrect
+        background-color: #eac3b8
+        color: rgb(176, 102, 96) !important
+
+
+    p i
+        font-style: normal
+        cursor: pointer
+        position: relative
+
+    p i.comma
+        color: #ca8f42
+
+
+    p:not(.showAnswers) b:hover
+        background-color: #5e7703
+        -webkit-border-radius: 3px
+        border-radius: 3px
+        color: white
+        padding: 0 4px
+        margin: 0 -4px
+
+    p:not(.showAnswers) b.underlined:hover
+        background-color: #ca8f42
+
+    p:not(.showAnswers) i i
+        position: absolute
+        width: 0
+        height: 0
+        display: block
+        bottom: -10px
+        left: -4px
+        border-left: 5px solid transparent
+        border-right: 5px solid transparent
+        border-bottom: 10px solid #c1cc89
+
+    p.showAnswers i.incorrect i,
+    p.showAnswers i.correct i
+        position: absolute
+        width: 0
+        height: 0
+        display: block
+        bottom: -10px
+        left: -4px
+        border-left: 5px solid transparent
+        border-right: 5px solid transparent
+        border-bottom: 10px solid #5e7703
+
+    p.showAnswers i.incorrect i
+        border-bottom-color: rgb(176, 102, 96)
+
+    p i.comma i
+        border-bottom-color: #f9d3a5
+
+    p b canvas
+        position: absolute
+        height: 10px
+        bottom: -7px
+        width: 100%
+        right: 0
+        left: 0
+
+    p b:hover canvas
+        visibility: hidden
+
+    span.subquestion,
+    p q
+        display: none
+
