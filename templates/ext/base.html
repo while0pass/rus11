@@ -1,12 +1,13 @@
 {% extends 'base.nnj' %}
 
-{% block header -%}
+{% block header %}
+    {% set HTML = true %}
     <html>
         <head></head>
         <body>
-{%- endblock %}
+{% endblock %}
 
-{% block header -%}
+{% block footer %}
         </body>
     </html>
-{%- endblock %}
+{% endblock %}

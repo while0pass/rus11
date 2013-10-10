@@ -13,7 +13,8 @@ module.exports = function (grunt) {
           path.join(process.cwd(), 'templates/nnj'),
           path.join(process.cwd(), 'js'),
           path.join(process.cwd(), '.css'),
-        ]
+        ],
+        contextRoot: path.join(process.cwd(), 'templates/context'),
       },
       html: {
           expand: true,

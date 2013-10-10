@@ -19,9 +19,6 @@
 
 <script type="application/javascript">
 
-    {% for prefix in JS %}
-        {% set JSFILE = 'ex' + EXERCISE + '.' + prefix +'.js' %}
-        {% include JSFILE %}
-    {% endfor %}
+    {% include JS %}
 
 </script>

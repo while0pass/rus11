@@ -2,6 +2,7 @@
 
 
 {% block header %}
+{% set HTML = false %}
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
 
@@ -13,7 +14,7 @@
 
   <question type="cloze">
     <name>
-        <text>Упр. {{ EXERCISE }}{% if SENTENCE %}-{{ SENTENCE }}{% endif %}</text>
+        <text>Упр. {{ EXERCISE }}{% if SENTENCE %}-{{ SENTENCE }}{% endif %} ({{ VERSION }})</text>
     </name>
     <questiontext format="html">
         <text><![CDATA[
