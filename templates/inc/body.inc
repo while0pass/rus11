@@ -1,4 +1,4 @@
-<script id="rus11hStyles" type="text/css">
+<script id="rXI---styles" type="text/css">
 
     {% include CSS %}
 
@@ -7,11 +7,11 @@
 {% include 'jquery.inc' %}
 
 <script>
-    var txt = $('#rus11hStyles').text();
+    var txt = $('#rXI---styles').text();
     document.write('<style>' + txt + '</style>');
 </script>
 
-<div id="rus11h">
+<div id="rXI---main">
 
     {% include QUIZ %}
 

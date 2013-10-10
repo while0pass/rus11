@@ -1,10 +1,10 @@
-$('#rus11h p').mouseenter(function(){
+$('#rXI---main p').mouseenter(function(){
     $(this).children('i').append('<i></i>');
 }).mouseleave(function(){
     $(this).find('i i').remove();
 });
 
-$('#rus11h p > b, #rus11h p > i').click(function(){
+$('#rXI---main p > b, #rXI---main p > i').click(function(){
     var x = $(this),
         input = x.next('q').find('input[type="text"]');
     if (input.attr('value') === '_') {
@@ -14,7 +14,7 @@ $('#rus11h p > b, #rus11h p > i').click(function(){
     }
 });
 
-$('#rus11h p > b').click(function(){
+$('#rXI---main p > b').click(function(){
     var x = $(this),
         cnvs = x.find('canvas')[0];
     if (cnvs) {
@@ -49,7 +49,7 @@ $('#rus11h p > b').click(function(){
     ctx.stroke();
 });
 
-$('#rus11h p i').click(function(){
+$('#rXI---main p i').click(function(){
     var txt = $(this).text();
     if (txt.replace(/\s*/g, '')) {
         $(this).text(' ');
@@ -62,15 +62,15 @@ $('#rus11h p i').click(function(){
 
 
 {% if HTML %}
-
-    $('#rus11h p q')
+/*
+    $('#rXI---main p q')
         .replaceWith('<q><span class="subquestion">' +
                  '<input type="text" class="incorrect" value="_"/></span></q>');
-
+*/
 {% endif %}
 
 
-$('#rus11h p input[type="text"]').each(function(){
+$('#rXI---main p input[type="text"]').each(function(){
     var x = $(this);
     if (!x.attr('value')) {
         x.attr('value', '_');
@@ -79,12 +79,12 @@ $('#rus11h p input[type="text"]').each(function(){
 
 $(document).ready(function(){
     function doIt() {
-        var showAnswers = $('#rus11h input.correct, #rus11h input.incorrect').length;
+        var showAnswers = $('#rXI---main input.correct, #rXI---main input.incorrect').length;
         if (showAnswers) {
-            $('#rus11h p')
+            $('#rXI---main p')
                 .addClass('showAnswers')
                 .off('mouseenter mouseleave');
-            $('#rus11h p > b').each(function(){
+            $('#rXI---main p > b').each(function(){
                 var b = $(this),
                     input = b.next('q').find('input[type="text"]').first();
                 if (input.hasClass('correct') && input.attr('value') === 'X') {
@@ -93,7 +93,7 @@ $(document).ready(function(){
                     b.addClass('incorrect');
                 }
             });
-            $('#rus11h p > i').each(function(){
+            $('#rXI---main p > i').each(function(){
                 var i = $(this),
                     input = i.next('q').find('input[type="text"]').first();
                 if (input.hasClass('correct') && input.attr('value') === 'X') {
