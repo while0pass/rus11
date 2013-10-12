@@ -6,12 +6,12 @@
 
 {% include 'jquery.inc' %}
 
-<script>
+<script type="application/javascript">
     var txt = $('#rXI---styles').text();
     document.write('<style>' + txt + '</style>');
 </script>
 
-<div id="rXI---main">
+<div id="rXI---main" lang="ru">
 
     {% include QUIZ %}
 
