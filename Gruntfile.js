@@ -57,12 +57,26 @@ module.exports = function (grunt) {
         build: ['build/'],
     },
 
+    watch: {
+        options: {
+            livereload: true,
+        },
+        styl: {
+            files: ['css/*.styl'],
+            tasks: ['stylus', 'autoprefixer'],
+        },
+        html: {
+            files: ['templates/**/*', '.temp/css/*.css', 'js/*.js'],
+            tasks: ['jinja'],
+        },
+    },
   });
 
   grunt.loadNpmTasks('grunt-jinja');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['stylus', 'autoprefixer', 'jinja']);
 }
