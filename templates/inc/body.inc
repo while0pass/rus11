@@ -21,4 +21,8 @@
 
     {% include JS %}
 
+    {% if not HTML %}
+    jQuery.noConflict(true);
+    {% endif %}
+
 </script>
