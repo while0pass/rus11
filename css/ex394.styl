@@ -14,18 +14,21 @@
         margin-bottom: 2em
 
 
-    .author:before
-        content: '('
-        font-style: normal
-
-
-    .author:after
-        content: ')'
-        font-style: normal
-
-
     .author
         font-style: italic
+        white-space: nowrap
+        color: $green
+
+        &:before
+        &:after
+        &::before
+        &::after
+            font-style: normal
+            content: '('
+
+        &:after
+        &::after
+            content: ')'
 
 
     p
