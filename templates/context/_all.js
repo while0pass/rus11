@@ -1,7 +1,11 @@
 var now = new Date(),
+    twoDigits = function (x) { return ('0' + x).slice(-2); },
     version = require('util').format('v%s.%s.%s.%s',
-        ('0' + (now.getMonth() + 1)).slice(-2),
-        now.getDate(), now.getHours(), now.getMinutes());
+        twoDigits(now.getMonth() + 1),
+        twoDigits(now.getDate()),
+        twoDigits(now.getHours()),
+        twoDigits(now.getMinutes())
+    );
 
 module.exports = {
     VERSION: version,
