@@ -1,0 +1,43 @@
+{% extends 'base.nnj' %}
+
+
+{% block header %}
+{% set HTML = false %}
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category>
+        <text>$course$/{{ CATEGORY }}</text>
+    </category>
+  </question>
+{% endblock %}
+
+
+{% block main %}
+  {% for SENTENCE in SENTENCES %}
+  {% set QUIZ = PREFIX + EXERCISE + '-' + SENTENCE + '.inc' %}
+  <question type="cloze">
+    <name>
+        <text>Упр. {{ EXERCISE }}-{{ SENTENCE }} ({{ VERSION }})</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[
+
+            {% include QUIZ %}
+
+        ]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+  </question>
+  {% endfor %}
+{% endblock %}
+
+
+{% block footer %}
+</quiz>
+{% endblock %}
