@@ -1,0 +1,6 @@
+{% extends 'base.xml' %}
+{% block settings %}
+    {% set EXERCISE = '399' %}
+    {% set SENTENCE = '10' %}
+    {% set CATEGORY = 'iQuizzes' %}
+{% endblock %}
