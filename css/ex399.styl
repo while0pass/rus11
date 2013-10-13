@@ -10,7 +10,7 @@ $padding = (0.7 * $padX) $padX
 
 #rXI---main
     color: #333
-    font-family: Arial, sans-serif
+    font-family: Arial, 'Lucida Grande', sans-serif
     font-size: 12pt
     margin: auto
     max-width: 40em
@@ -50,7 +50,7 @@ $padding = (0.7 * $padX) $padX
     &::after
         position: absolute
         font-size: 52pt
-        font-family: 'Times New Roman', serif
+        font-family: 'Times New Roman', Times, serif
         font-weight: bold
         color: $green
         opacity: 0.2
@@ -66,12 +66,15 @@ $padding = (0.7 * $padX) $padX
         right: -0.15em
 
     span.bad
-        background-color: $red
-        color: $redBg
-
     span.good
-        background-color: $green
-        color: $greenBg
+        position: relative
+
+        canvas
+            width: 100%
+            height: 5px
+            position: absolute
+            bottom: -5px
+            left: -4px
 
 #rXI---score
 #rXI---slug

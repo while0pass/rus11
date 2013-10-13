@@ -86,9 +86,9 @@
             i, j;
         for (i=0, j=puNumbers.length; i<j; i++) {
             if (puNumbers[i] !== q.pu[i]) {
-                pu[i] = '<span class="bad">' + pu[i] + '</span>';
+                pu[i] = '<span class="bad">' + pu[i] + '<canvas/></span>';
             } else if (q.ma[i]) {
-                pu[i] = '<span class="good">' + pu[i] + '</span>';
+                pu[i] = '<span class="good">' + pu[i] + '<canvas/></span>';
             }
         }
         for (i=0, j=words.length; i<j; i++) {
@@ -98,11 +98,51 @@
         return html
     }
 
+    function adjustCanvas() {
+        textareaInput.find('.bad canvas').each(function () {
+            var ctx = this.getContext('2d'),
+                width = $(this).parent().width() + 10;
+
+            $(this).width(width);
+            this.width = width;
+            this.height = 5;
+            ctx.strokeStyle = 'red';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, 5);
+            ctx.bezierCurveTo(0, 2,
+                              width * 3 / 2, 0,
+                              width, 0);
+            ctx.stroke();
+        });
+        textareaInput.find('.good canvas').each(function () {
+            var ctx = this.getContext('2d'),
+                width = $(this).parent().width() + 10;
+
+            $(this).width(width);
+            this.width = width;
+            this.height = 5;
+            ctx.strokeStyle = 'green';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, 5);
+            ctx.bezierCurveTo(0, 2,
+                              width * 3 / 2, 0,
+                              width, 0);
+            ctx.stroke();
+        });
+    }
+
     if (!slugInput.attr('value')) {
         changeAnswer();
     } else {
         textareaInput.attr('contenteditable', false);
         textareaInput.html(getTextWithAnswers());
+        adjustCanvas();
     }
 
     {% if HTML %}
@@ -111,6 +151,7 @@
             if (slugInput.hasClass('correct')) {
                 textareaInput.attr('contenteditable', false);
                 textareaInput.html(getTextWithAnswers());
+                adjustCanvas();
             } else {
                 textareaInput.attr('contenteditable', true);
                 textareaInput.html(q.te);
