@@ -4,5 +4,5 @@
 {% set QUIZ = PREFIX + EXERCISE + (('-' + SENTENCE) if SENTENCE else '') + '.inc' %}
 {% set JS = PREFIX + EXERCISE + '.js' %}
 {% block header %}{% endblock %}
-{% block main %}{% include 'body.inc' %}{% endblock %}
+{% block main %}{% include 'inc/body.inc' %}{% endblock %}
 {% block footer %}{% endblock %}

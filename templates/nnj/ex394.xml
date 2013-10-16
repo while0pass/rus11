@@ -1,4 +1,4 @@
-{% extends 'base.xml' %}
+{% extends 'ext/base.xml' %}
 {% block settings %}
     {% set EXERCISE = '394' %}
     {% set SENTENCE = '' %}

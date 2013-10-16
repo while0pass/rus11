@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     jinja: {
       options: {
         templateDirs: [
+          path.join(process.cwd(), 'templates/'),
           path.join(process.cwd(), 'templates/ext/'),
           path.join(process.cwd(), 'templates/inc/'),
           path.join(process.cwd(), 'templates/quizzes/'),
