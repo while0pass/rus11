@@ -1,0 +1,81 @@
+$green = #5e7703
+$greenBg = #c1cc89
+$red = rgb(176, 102, 96)
+$redBg = #eac3b8
+$yellow = #ca8f42
+$yellowBg = #f9d3a5
+
+$padX = 2em
+$padding = (0.7 * $padX) $padX
+
+#rXI---main
+    color: #333
+    font-family: Arial, 'Lucida Grande', sans-serif
+    font-size: 12pt
+    margin: auto
+    max-width: 40em
+
+    .rXI---note
+        padding: $padding
+        background-color: rgb(255, 255, 204)
+        color: rgb(0, 0, 153)
+        border-radius: 10px
+        margin-bottom: 2em
+
+#rXI---author
+    text-align: right
+    padding: $padding
+    font-style: italic
+    white-space: nowrap
+    color: $green
+
+    &::selection
+        background-color: $greenBg
+
+#rXI---textarea
+    background-color: $greenBg
+    color: $green
+    border: none
+    border-radius: 5px
+    padding: $padding
+    min-height: 1em
+    outline: none
+    position: relative
+
+    &::selection
+        background-color: $green
+        color: $greenBg
+
+    &::before
+    &::after
+        position: absolute
+        font-size: 52pt
+        font-family: 'Times New Roman', Times, serif
+        font-weight: bold
+        color: $green
+        opacity: 0.2
+
+    &::before
+        content: '„'
+        bottom: -0.2em
+        left: -0.15em
+
+    &::after
+        content: '“'
+        top: -0.2em
+        right: -0.15em
+
+    span.bad
+    span.good
+        position: relative
+
+        canvas
+            width: 100%
+            height: 5px
+            position: absolute
+            bottom: -5px
+            left: -4px
+
+#rXI---score
+#rXI---slug
+    display: none
