@@ -1,8 +1,20 @@
+
+<div class="rXI---markers">
+    <a class="rXI---blueMarker">
+        <img src="../../img/blueMarkerPointer.png" alt=""/>
+        Одиночные деепричастия
+    </a>
+    <a class="rXI---greenMarker">
+        <img src="../../img/greenMarkerPointer.png" alt=""/>
+        Деепричастные обороты
+    </a>
+</div>
+
 <div id="rXI---textarea" contenteditable="true"></div>
 <div id="rXI---author"></div>
 
 {% for SELECTION in SELECT %}
-<div id="rXI---selection{{ forloop.index }}">
+<div id="rXI---selection{{ loop.index }}" class="rXI---selection">
     {% if HTML %}
         <input type="text" />
     {% else %}

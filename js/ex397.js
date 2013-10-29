@@ -18,11 +18,146 @@
         slugInput = $('#rXI---slug').find('input[type="text"]'),
         scoreInput = $('#rXI---score').find('input[type="text"]'),
         authorElem = $('#rXI---author');
-        slugSeparator = '|';
+        slugSeparator = '|',
+        whichMarker = null;
 
 
-    textareaInput.html(q.te);
+    $('.rXI---markers a').click(function () {
+        var x = $(this),
+            cls = x.attr('class');
+        if ($('#rXI---main').hasClass(cls)) {
+            $('#rXI---main').removeClass('rXI---blueMarker rXI---greenMarker');
+            whichMarker = null;
+        } else {
+            $('#rXI---main')
+                .removeClass('rXI---blueMarker rXI---greenMarker')
+                .addClass(cls);
+            whichMarker = cls;
+        }
+    });
+
+    function markupWordsAndBlanks(text) {
+        var wordChars = 'а-яА-Я0-9',
+            wordRE = new RegExp('^[' + wordChars + ']+'),
+            nonWordRE = new RegExp('^[^' + wordChars + ']*'),
+            i = 0, match, count = 0,
+            html = '';
+
+        while (true) {
+            count += 1;
+            match = nonWordRE.exec(text.slice(i));
+            html += '<span class="rXI---nonWord" ' +
+                'data-order="' + count + '">' + match[0] + '</span>';
+            i = i + match[0].length;
+            match = wordRE.exec(text.slice(i));
+            if (match !== null) {
+                html += '<span class="rXI---word" contenteditable="false"' +
+                    'data-order="' + count + '">' + match[0] + '</span>';
+                i = i + match[0].length;
+            } else {
+                break;
+            }
+        }
+        return html;
+    }
+
+    {% if HTML %} console.log(markupWordsAndBlanks(q.te)); {% endif %}
+
+    textareaInput.html(markupWordsAndBlanks(q.te));
     authorElem.html(q.au);
+
+
+    function processSelection() {
+        var sel = document.getSelection();
+        if (whichMarker) {
+            var start = $(sel.anchorNode).closest('.rXI---word, .rXI---nonWord'),
+                end = $(sel.focusNode).closest('.rXI---word, .rXI---nonWord');
+
+            if (sel.isCollapsed) {
+                var selid = start.attr('data-selid');
+                if (selid) {
+                    $('[data-selid="' + selid + '"]')
+                        .removeClass(selid.split(/[0-9]+/)[0])
+                        .removeAttr('data-selid');
+                    return false;
+                }
+            }
+            sel.removeAllRanges();
+
+            var isStartWord = start.is('.rXI---word');
+            var isEndWord = end.is('.rXI---word');
+            var startOrder = parseInt(start.attr('data-order'));
+            var endOrder = parseInt(end.attr('data-order'));
+
+            if (startOrder < endOrder) {
+                direction = 'right';
+            } else if (startOrder > endOrder) {
+                direction = 'left';
+            } else {
+                direction = isStartWord ? 'left' : 'right';
+                //  Случай, когда ни одно слово не выделено.
+                if (!isStartWord && !isEndWord) {
+                    return false;
+                }
+            }
+
+            if (!isStartWord) {
+                start = start[direction === 'right' ? 'next':'prev']('.rXI---word');
+                isStartWord = !isStartWord;
+            }
+            if (!isEndWord) {
+                end = end[direction === 'right' ? 'prev':'next']('.rXI---word');
+                isEndWord = !isEndWord;
+            }
+
+            var temp = start;
+            if (direction === 'left') {
+                start = end;
+                end = temp;
+            }
+
+            while (typeof start.get(0) !== 'undefined' &&
+            parseInt(start.attr('data-order')) <= parseInt(end.attr('data-order'))) {
+                start.prevAll('.maybeMarked')
+                    .removeClass('rXI---blueMarker rXI---greenMarker')
+                    .removeClass('maybeMarked')
+                    .addClass(whichMarker)
+                    .attr('data-selid', whichMarker + processSelection.counter);
+                if (start.is('[data-selid]') &&
+                start.attr('data-selid') !== whichMarker + processSelection.counter) {
+                    $('[data-selid="' + start.attr('data-selid') + '"]')
+                        .removeClass('rXI---blueMarker rXI---greenMarker')
+                        .addClass(whichMarker)
+                        .attr('data-selid', whichMarker + processSelection.counter);
+                } else {
+                    start
+                        .removeClass('rXI---blueMarker rXI---greenMarker')
+                        .addClass(whichMarker)
+                        .attr('data-selid', whichMarker + processSelection.counter);
+                }
+                start = start.nextAll('.rXI---nonWord').first();
+                start.addClass('maybeMarked');
+                start = start.nextAll('.rXI---word').first();
+            }
+            start.prevAll('.maybeMarked').removeClass('maybeMarked');
+            processSelection.counter++;
+        } else {
+            return false;
+        }
+    }
+    processSelection.counter = 0;
+
+    textareaInput.on('dragstart', function () { return false; });
+    textareaInput.on('mouseup', processSelection);
+
+
+
+
+
+
+
+
+
 
     function getWords(text) {
         return text.match(/[а-яА-Я0-9]+/g);

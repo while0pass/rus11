@@ -1,9 +1,13 @@
+$beige = #9a8b62
+$beigePastel = #e3dcc0
+$blue = #153450
+$bluePastel = #8fbcdb
 $green = #5e7703
-$greenBg = #c1cc89
+$greenPastel = #c1cc89
 $red = rgb(176, 102, 96)
-$redBg = #eac3b8
+$redPastel = #eac3b8
 $yellow = #ca8f42
-$yellowBg = #f9d3a5
+$yellowPastel = #f9d3a5
 
 $padX = 2em
 $padding = (0.7 * $padX) $padX
@@ -22,19 +26,43 @@ $padding = (0.7 * $padX) $padX
         border-radius: 10px
         margin-bottom: 2em
 
+    for i in ('blue' $blue $bluePastel) ('green' $green $greenPastel)
+        _cursor = url('../../img/' + i[0] + 'MarkerPointer.png'), auto !important
+        &.rXI---{i[0]}Marker
+            cursor: _cursor
+
+            #rXI---textarea
+            #rXI---textarea *
+                cursor: _cursor
+
+                &::selection
+                    background-color: i[2]
+                    color: i[1]
+
+            .rXI---markers a.rXI---{i[0]}Marker img
+                opacity: 0.2
+
+                &:hover
+                    cursor: _cursor
+
+        #rXI---textarea .rXI---{i[0]}Marker.rXI---word
+        #rXI---textarea .rXI---{i[0]}Marker.rXI---nonWord
+            background-color: i[2]
+            color: i[1]
+
 #rXI---author
     text-align: right
     padding: $padding
     font-style: italic
     white-space: nowrap
-    color: $green
+    color: $beige
 
     &::selection
-        background-color: $greenBg
+        background-color: $beigePastel
 
 #rXI---textarea
-    background-color: $greenBg
-    color: $green
+    background-color: $beigePastel
+    color: $beige
     border: none
     border-radius: 5px
     padding: $padding
@@ -43,8 +71,9 @@ $padding = (0.7 * $padX) $padX
     position: relative
 
     &::selection
-        background-color: $green
-        color: $greenBg
+    & *::selection
+        background-color: transparent
+        color: transparent
 
     &::before
     &::after
@@ -52,7 +81,7 @@ $padding = (0.7 * $padX) $padX
         font-size: 52pt
         font-family: 'Times New Roman', Times, serif
         font-weight: bold
-        color: $green
+        color: $beige
         opacity: 0.2
 
     &::before
@@ -78,4 +107,32 @@ $padding = (0.7 * $padX) $padX
 
 #rXI---score
 #rXI---slug
+.rXI---selection
     display: none
+
+.rXI---markers
+    position: relative
+    margin: 30px auto
+
+    img
+        position: absolute
+        top: -7px
+        left: 20px
+        opacity: 1
+
+        &:hover
+            cursor: pointer !important
+    a
+        display: block
+        padding-left: 100px
+        margin: 15px auto
+        position: relative
+
+        &.rXI---greenMarker
+            background-color: $greenPastel
+            color: $green
+
+        &.rXI---blueMarker
+            background-color: $bluePastel
+            color: $blue
+
