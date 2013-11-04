@@ -1,0 +1,6 @@
+{% extends 'ext/base.xml' %}
+{% block settings %}
+    {% set EXERCISE = '397' %}
+    {% set SENTENCE = '01' %}
+    {% set CATEGORY = 'iQuizzes' %}
+{% endblock %}
