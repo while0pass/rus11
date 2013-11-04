@@ -26,11 +26,11 @@
         var x = $(this),
             cls = x.attr('class');
         if ($('#rXI---main').hasClass(cls)) {
-            $('#rXI---main').removeClass('rXI---blueMarker rXI---greenMarker');
+            $('#rXI---main').removeClass('rXI---1Marker rXI---2Marker');
             whichMarker = null;
         } else {
             $('#rXI---main')
-                .removeClass('rXI---blueMarker rXI---greenMarker')
+                .removeClass('rXI---1Marker rXI---2Marker')
                 .addClass(cls);
             whichMarker = cls;
         }
@@ -66,9 +66,68 @@
     textareaInput.html(markupWordsAndBlanks(q.te));
     authorElem.html(q.au);
 
+    function updateSelectionQuizResults(element) {
+        var el = $(element),
+            start, end, selid, order, ranges = {};
+
+        $('.rXI---markers a').each(function () {
+            ranges[$(this).attr('class')] = [];
+        });
+
+        el.find('.rXI---word').each(function () {
+            var x = $(this),
+                currentSelid = x.attr('data-selid'),
+                currentMarker = currentSelid && currentSelid.replace(/[0-9]+$/, '');
+            order = x.attr('data-order');
+
+            if (!start && currentSelid) {
+                start = order;
+                end = null;
+                selid = currentSelid;
+            } else if (start && currentSelid) {
+                if (selid !== currentSelid) {
+                    end = '' + (parseInt(order) - 1);
+                    ranges[selid.replace(/[0-9]+$/, '')].push(start + '-' + end);
+                    start = order;
+                    end = null;
+                    selid = currentSelid;
+                }
+            } else if (start && !currentSelid) {
+                end = '' + (parseInt(order) - 1);
+                ranges[selid.replace(/[0-9]+$/, '')].push(start + '-' + end);
+                start = null;
+                end = null;
+                selid = null;
+            }
+        });
+
+        if (start) {
+            end = order;
+            ranges[selid.replace(/[0-9]+$/, '')].push(start + '-' + end);
+        }
+
+        el.nextAll('.rXI---selection').each(function () {
+            var x = $(this), i, j,
+                markerRanges = ranges[x.attr('data-marker')],
+                markerIndex = parseInt(/[0-9]+/.exec(x.attr('data-marker'))[0]) - 1,
+                rightRanges = rXI$h.se[markerIndex].split(','),
+                slug = markerRanges.join(),
+                score = 0;
+            if (markerRanges.length == 0) markerRanges.push('');
+            for (i=0, j=markerRanges.length; i<j; i++) {
+                score += 10 / rightRanges.length * (rightRanges.indexOf(markerRanges[i]) > -1 ? 1: -1);
+            }
+            score = Math.ceil(score);
+            if (score < 0) score = 0;
+            if (score > 10) throw new Error('Score can not be more than 10.');
+            x.find('input').first().attr('value', slug);
+            x.find('input').last().attr('value', score);
+        });
+    }
 
     function processSelection() {
-        var sel = document.getSelection();
+        var sel = document.getSelection(),
+            element = this;
         if (whichMarker) {
             var start = $(sel.anchorNode).closest('.rXI---word, .rXI---nonWord'),
                 end = $(sel.focusNode).closest('.rXI---word, .rXI---nonWord');
@@ -77,8 +136,9 @@
                 var selid = start.attr('data-selid');
                 if (selid) {
                     $('[data-selid="' + selid + '"]')
-                        .removeClass(selid.split(/[0-9]+/)[0])
+                        .removeClass(selid.replace(/[0-9]+$/, ''))
                         .removeAttr('data-selid');
+                    updateSelectionQuizResults(element);
                     return false;
                 }
             }
@@ -97,6 +157,7 @@
                 direction = isStartWord ? 'left' : 'right';
                 //  Случай, когда ни одно слово не выделено.
                 if (!isStartWord && !isEndWord) {
+                    updateSelectionQuizResults(element);
                     return false;
                 }
             }
@@ -119,19 +180,19 @@
             while (typeof start.get(0) !== 'undefined' &&
             parseInt(start.attr('data-order')) <= parseInt(end.attr('data-order'))) {
                 start.prevAll('.maybeMarked')
-                    .removeClass('rXI---blueMarker rXI---greenMarker')
+                    .removeClass('rXI---1Marker rXI---2Marker')
                     .removeClass('maybeMarked')
                     .addClass(whichMarker)
                     .attr('data-selid', whichMarker + processSelection.counter);
                 if (start.is('[data-selid]') &&
                 start.attr('data-selid') !== whichMarker + processSelection.counter) {
                     $('[data-selid="' + start.attr('data-selid') + '"]')
-                        .removeClass('rXI---blueMarker rXI---greenMarker')
+                        .removeClass('rXI---1Marker rXI---2Marker')
                         .addClass(whichMarker)
                         .attr('data-selid', whichMarker + processSelection.counter);
                 } else {
                     start
-                        .removeClass('rXI---blueMarker rXI---greenMarker')
+                        .removeClass('rXI---1Marker rXI---2Marker')
                         .addClass(whichMarker)
                         .attr('data-selid', whichMarker + processSelection.counter);
                 }
@@ -141,9 +202,9 @@
             }
             start.prevAll('.maybeMarked').removeClass('maybeMarked');
             processSelection.counter++;
-        } else {
-            return false;
         }
+        updateSelectionQuizResults(element);
+        return false;
     }
     processSelection.counter = 0;
 

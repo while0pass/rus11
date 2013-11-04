@@ -1,10 +1,10 @@
 
 <div class="rXI---markers">
-    <a class="rXI---blueMarker">
+    <a class="rXI---1Marker">
         <img src="../../img/blueMarkerPointer.png" alt=""/>
         Одиночные деепричастия
     </a>
-    <a class="rXI---greenMarker">
+    <a class="rXI---2Marker">
         <img src="../../img/greenMarkerPointer.png" alt=""/>
         Деепричастные обороты
     </a>
@@ -14,11 +14,13 @@
 <div id="rXI---author"></div>
 
 {% for SELECTION in SELECT %}
-<div id="rXI---selection{{ loop.index }}" class="rXI---selection">
+<div data-marker="rXI---{{ loop.index }}Marker" class="rXI---selection">
     {% if HTML %}
+        <input type="text" />
         <input type="text" />
     {% else %}
         {0:SA:%100%{{ SELECTION }}}
+        {10:SA:%10%1~%20%2~%30%3~%40%4~%50%5~%60%6~%70%7~%80%8~%90%9~%100%10}
     {% endif %}
 </div>
 {% endfor %}
@@ -44,5 +46,6 @@
             te: '{{ TEXT }}',
             pu: {{ PUNCT }},
             ma: {{ MASK }},
+            se: [ {% for S in SELECT %} '{{ S }}', {% endfor %} ],
         };
 </script>
