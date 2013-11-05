@@ -39,8 +39,20 @@ module.exports = function (grunt) {
         expand: true,
         flatten: true,
         src:  ['css/*.css', '.temp/stylus2css/*.css'],
-        dest: '.temp/css/',
+        dest: '.temp/autoprefixer/',
       },
+    },
+
+    cssUrlRewrite: {
+        options: {
+            deleteAfterEncoding: false,
+        },
+        target: {
+            expand: true,
+            flatten: true,
+            src: ['.temp/autoprefixer/*.css'],
+            dest: '.temp/css/'
+        },
     },
 
     stylus: {
@@ -78,6 +90,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks("grunt-css-url-rewrite");
 
-  grunt.registerTask('default', ['stylus', 'autoprefixer', 'jinja']);
+  grunt.registerTask('default', ['stylus', 'autoprefixer', 'cssUrlRewrite',
+                                 'jinja']);
 }

@@ -7,6 +7,7 @@
     "grunt-autoprefixer": "~0.3.0",
     "grunt-contrib-stylus": "~0.8.0",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-css-url-rewrite": "~0.3.2"
   }
 }
