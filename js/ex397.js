@@ -336,6 +336,7 @@
     if (!slugInput.attr('value')) {
         changeAnswer();
     } else {
+        $('.rXI---markers').hide();
         textareaInput.attr('contenteditable', false);
         textareaInput.html(getTextWithAnswers());
         adjustCanvas();
@@ -345,10 +346,12 @@
         authorElem.dblclick(function () {
             slugInput.toggleClass('correct');
             if (slugInput.hasClass('correct')) {
+                $('.rXI---markers').hide();
                 textareaInput.attr('contenteditable', false);
                 textareaInput.html(getTextWithAnswers());
                 adjustCanvas();
             } else {
+                $('.rXI---markers').show();
                 textareaInput.attr('contenteditable', true);
                 textareaInput.html(q.te);
                 changeAnswer();
