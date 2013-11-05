@@ -39,7 +39,7 @@ $padding = (0.7 * $padX) $padX
                     background-color: i[3]
                     color: i[2]
 
-            .rXI---markers a.rXI---{i[0]}Marker img
+            .rXI---markers a.rXI---{i[0]}Marker span
                 opacity: 0.2
 
                 &:hover
@@ -113,14 +113,6 @@ $padding = (0.7 * $padX) $padX
     position: relative
     margin: 30px auto
 
-    img
-        position: absolute
-        top: -7px
-        left: 20px
-        opacity: 1
-
-        &:hover
-            cursor: pointer !important
     a
         display: block
         padding-left: 100px
@@ -131,7 +123,24 @@ $padding = (0.7 * $padX) $padX
             background-color: $greenPastel
             color: $green
 
+            span
+                background-image: url(../../img/greenMarkerPointer.png)
+
         &.rXI---1Marker
             background-color: $bluePastel
             color: $blue
 
+            span
+                background-image: url(../../img/blueMarkerPointer.png)
+
+        span
+            display: block
+            position: absolute
+            top: -7px
+            left: 20px
+            opacity: 1
+            width: 63px
+            height: 42px
+
+            &:hover
+                cursor: pointer !important

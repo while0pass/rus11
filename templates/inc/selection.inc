@@ -1,11 +1,9 @@
 
 <div class="rXI---markers">
-    <a class="rXI---1Marker">
-        <img src="../../img/blueMarkerPointer.png" alt=""/>
+    <a class="rXI---1Marker"><span></span>
         Одиночные деепричастия
     </a>
-    <a class="rXI---2Marker">
-        <img src="../../img/greenMarkerPointer.png" alt=""/>
+    <a class="rXI---2Marker"><span></span>
         Деепричастные обороты
     </a>
 </div>
