@@ -55,6 +55,14 @@ module.exports = function (grunt) {
         },
     },
 
+    jsEscapeSequences: {
+        target: {
+            expand: true,
+            src: '.temp/css/*.css',
+            ext: '.jses',
+        },
+    },
+
     stylus: {
         styl: {
             expand: true,
@@ -92,6 +100,25 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks("grunt-css-url-rewrite");
 
+  grunt.registerMultiTask('jsEscapeSequences',
+  'Escape file contents using JavaScript\'s strings hexadecimal and ' +
+  'unicode escape sequences', function () {
+    var i, j, m, n, opts, conts, src;
+    opts = this.options({ encoding: grunt.file.defaultEncoding });
+    for(i=0, j=this.files.length; i<j; i++) {
+        f = this.files[i];
+        conts = [];
+        for(m=0, n=f.src.length; m<n; m++) {
+            src = f.src[m]
+            conts.push(grunt.file.read(src, { encoding: opts.encoding }));
+        }
+        grunt.file.write(
+            f.dest || f.src[0],
+            escape(conts.join('\n')).replace(/%u/g, '\\u').replace(/%/g, '\\x'),
+            { encoding: opts.encoding });
+        grunt.log.writeln(f.src, '-->', f.dest);
+    }
+  });
   grunt.registerTask('default', ['stylus', 'autoprefixer', 'cssUrlRewrite',
-                                 'jinja']);
+                                 'jsEscapeSequences', 'jinja']);
 }
