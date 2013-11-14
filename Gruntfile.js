@@ -96,11 +96,11 @@ module.exports = function (grunt) {
         },
         styl: {
             files: ['css/*.styl'],
-            tasks: ['stylus', 'autoprefixer'],
+            tasks: ['stylus', 'autoprefixer', 'csso'],
         },
         jses: {
             files: ['.temp/css/*.css'],
-            tasks: ['csso', 'jsEscapeSequences'],
+            tasks: ['jsEscapeSequences'],
         },
         html: {
             files: ['templates/**/*', '.temp/css/*', 'js/*.js'],
