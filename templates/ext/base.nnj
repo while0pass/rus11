@@ -1,6 +1,6 @@
 {% block settings %}{% endblock %}
 {% set PREFIX = 'ex' %}
-{% set CSS = PREFIX + EXERCISE + '.css' %}
+{% set CSS = PREFIX + EXERCISE + '.jses' %}
 {% set QUIZ = PREFIX + EXERCISE + (('-' + SENTENCE) if SENTENCE else '') + '.inc' %}
 {% set JS = PREFIX + EXERCISE + '.js' %}
 {% block header %}{% endblock %}

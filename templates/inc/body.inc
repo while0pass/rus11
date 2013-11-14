@@ -1,14 +1,7 @@
-<script id="rXI---styles" type="text/css">
-
-    {% include CSS %}
-
-</script>
-
 {% include 'jquery.inc' %}
 
 <script type="application/javascript">
-    var txt = $('#rXI---styles').text();
-    document.write('<style>' + txt + '</style>');
+    document.write('<style>{% include CSS %}</style>');
 </script>
 
 <div id="rXI---main" lang="ru">
