@@ -55,6 +55,18 @@ module.exports = function (grunt) {
         },
     },
 
+    csso: {
+        options: {
+            restructure: false,
+        },
+        target: {
+            expand: true,
+            flatten: true,
+            src: ['.temp/css/*.css'],
+            dest: '.temp/css/'
+        },
+    },
+
     jsEscapeSequences: {
         target: {
             expand: true,
@@ -88,7 +100,7 @@ module.exports = function (grunt) {
         },
         jses: {
             files: ['.temp/css/*.css'],
-            tasks: ['jsEscapeSequences'],
+            tasks: ['csso', 'jsEscapeSequences'],
         },
         html: {
             files: ['templates/**/*', '.temp/css/*', 'js/*.js'],
@@ -103,6 +115,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks("grunt-css-url-rewrite");
+  grunt.loadNpmTasks('grunt-csso-alt');
 
   grunt.registerMultiTask('jsEscapeSequences',
   'Escape file contents using JavaScript\'s strings hexadecimal and ' +
@@ -124,5 +137,5 @@ module.exports = function (grunt) {
     }
   });
   grunt.registerTask('default', ['stylus', 'autoprefixer', 'cssUrlRewrite',
-                                 'jsEscapeSequences', 'jinja']);
+                                 'csso', 'jsEscapeSequences', 'jinja']);
 }
