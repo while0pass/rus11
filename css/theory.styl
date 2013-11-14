@@ -1,0 +1,64 @@
+$beige = #9a8b62
+$beigePastel = #e3dcc0
+$blue = #153450
+$bluePastel = #8fbcdb
+$green = #5e7703
+$greenPastel = #c1cc89
+$red = rgb(176, 102, 96)
+$redPastel = #eac3b8
+$yellow = #ca8f42
+$yellowPastel = #f9d3a5
+$violet = rgb(70, 70, 140)
+$violetPastel = rgb(204, 204, 255)
+
+$padX = 2em
+$padding = (0.7 * $padX) $padX
+
+//@css
+//    @import url('http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic&subset=cyrillic,latin')
+
+.rXI---main
+    color: #444
+    font-family: Arial, 'Lucida Grande', sans-serif
+    font-size: 12pt
+    margin: auto
+    max-width: 40em
+
+    header
+        color: $violet
+        background-color: $violetPastel
+        padding: 1em 0.8em 0.5em
+        margin: 1em -0.4em 0.5em
+        border-radius: 4px
+        font-size: 14pt
+        text-align: center
+        font-weight: bold
+
+    p
+        text-indent: 1.5em
+        margin-bottom: 0.5em
+
+    p > em
+        letter-spacing: 0.05em
+        color: $violet
+    p var
+        color: $green
+    p q
+        font-size: 11pt
+        font-style: italic
+
+        &:after
+        &:before
+        &::after
+        &::before
+            content: ''
+
+        em
+            font-weight: bold
+        span.rXI---author
+            font-style: normal
+
+    aside
+        font-size: 11pt !important
+        text-indent: 1.5em
+        margin-left: 1.5em

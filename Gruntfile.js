@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         expand: true,
         flatten: true,
         src:  ['css/*.css', '.temp/stylus2css/*.css'],
-        dest: '.temp/autoprefixer/',
+        dest: '.temp/css/',
       },
     },
 
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
         target: {
             expand: true,
             flatten: true,
-            src: ['.temp/autoprefixer/*.css'],
+            src: ['.temp/css/*.css'],
             dest: '.temp/css/'
         },
     },
@@ -86,8 +86,12 @@ module.exports = function (grunt) {
             files: ['css/*.styl'],
             tasks: ['stylus', 'autoprefixer'],
         },
+        jses: {
+            files: ['.temp/css/*.css'],
+            tasks: ['jsEscapeSequences'],
+        },
         html: {
-            files: ['templates/**/*', '.temp/css/*.css', 'js/*.js'],
+            files: ['templates/**/*', '.temp/css/*', 'js/*.js'],
             tasks: ['jinja'],
         },
     },
