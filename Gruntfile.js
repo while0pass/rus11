@@ -12,8 +12,9 @@ module.exports = function (grunt) {
           path.join(process.cwd(), 'templates/inc/'),
           path.join(process.cwd(), 'templates/quizzes/'),
           path.join(process.cwd(), 'templates/nnj/'),
-          path.join(process.cwd(), 'js'),
           path.join(process.cwd(), '.temp/css/'),
+          path.join(process.cwd(), '.temp/js/'),
+          path.join(process.cwd(), 'js'),
         ],
         contextRoot: path.join(process.cwd(), 'templates/context/'),
       },
@@ -85,6 +86,19 @@ module.exports = function (grunt) {
         }
     },
 
+    coffee: {
+        options: {
+            bare: true,
+        },
+        target: {
+            expand: true,
+            flatten: true,
+            src: 'js/*.coffee',
+            dest: '.temp/js/',
+            ext: '.js',
+        },
+    },
+
     clean: {
         temp: ['.temp/'],
         build: ['build/'],
@@ -98,12 +112,16 @@ module.exports = function (grunt) {
             files: ['css/*.styl'],
             tasks: ['stylus', 'autoprefixer', 'csso'],
         },
+        coffee: {
+            files: ['js/*.coffee'],
+            tasks: ['coffee'],
+        },
         jses: {
             files: ['.temp/css/*.css'],
             tasks: ['jsEscapeSequences'],
         },
         html: {
-            files: ['templates/**/*', '.temp/css/*', 'js/*.js'],
+            files: ['templates/**/*', '.temp/css/*', 'js/*.js', '.temp/js/*'],
             tasks: ['jinja'],
         },
     },
@@ -112,6 +130,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jinja');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-stylus');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks("grunt-css-url-rewrite");
@@ -137,5 +156,6 @@ module.exports = function (grunt) {
     }
   });
   grunt.registerTask('default', ['stylus', 'autoprefixer', 'cssUrlRewrite',
-                                 'csso', 'jsEscapeSequences', 'jinja']);
+                                 'csso', 'jsEscapeSequences', 'coffee',
+                                 'jinja']);
 }
