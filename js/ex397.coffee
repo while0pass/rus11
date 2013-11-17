@@ -201,7 +201,7 @@ do (q=rXI$h, $=jQuery) ->
         slugInput.attr 'value', getPuSlug text
         scoreInput.attr 'value', score
 
-    getTextWithAnswers = ->
+    showPunctuationAnswers = ->
         textareaInput.html markupWordsAndBlanks q.te
         pu = slugInput.attr('value').split slugSeparator
         puNumbers = getPuNumbers pu
@@ -214,7 +214,6 @@ do (q=rXI$h, $=jQuery) ->
             else if q.ma[i]
                 x.addClass('good')
                 x.append('<canvas class="puCorrectness"/>')
-        textareaInput.html()
 
     adjustCanvas = ->
         textareaInput.find('.bad canvas').each ->
@@ -285,7 +284,7 @@ do (q=rXI$h, $=jQuery) ->
     else
         $('.rXI---markers').hide()
         textareaInput.attr 'contenteditable', false
-        textareaInput.html getTextWithAnswers()
+        showPunctuationAnswers()
         adjustCanvas()
 
     ### {% if HTML %} ###
@@ -294,7 +293,7 @@ do (q=rXI$h, $=jQuery) ->
         if slugInput.hasClass 'correct'
             $('.rXI---markers').hide()
             textareaInput.attr 'contenteditable', false
-            textareaInput.html getTextWithAnswers()
+            showPunctuationAnswers()
             adjustCanvas()
         else
             $('.rXI---markers').show()
