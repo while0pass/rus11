@@ -202,18 +202,19 @@ do (q=rXI$h, $=jQuery) ->
         scoreInput.attr 'value', score
 
     getTextWithAnswers = ->
-        words = getWords q.te
+        textareaInput.html markupWordsAndBlanks q.te
         pu = slugInput.attr('value').split slugSeparator
         puNumbers = getPuNumbers pu
-        html = ''
         for i in [0...puNumbers.length]
+            x = textareaInput.find(".rXI---nonWord[data-order='#{ i+1 }']")
+            x.html(pu[i])
             if puNumbers[i] isnt q.pu[i]
-                pu[i] = "<span class='bad'>#{ pu[i] }<canvas/></span>"
+                x.addClass('bad')
+                x.append('<canvas class="puCorrectness"/>')
             else if q.ma[i]
-                pu[i] = "<span class='good'>#{ pu[i] }<canvas/></span>"
-        for i in [0...words.length]
-            html += words[i] + pu[i+1]
-        html = pu[0] + html
+                x.addClass('good')
+                x.append('<canvas class="puCorrectness"/>')
+        textareaInput.html()
 
     adjustCanvas = ->
         textareaInput.find('.bad canvas').each ->
