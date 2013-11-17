@@ -1,4 +1,5 @@
 do (q=rXI$h, $=jQuery) ->
+
     puMap =
         '':  0
         ' ': 0
@@ -20,20 +21,6 @@ do (q=rXI$h, $=jQuery) ->
     slugSeparator = '|'
     whichMarker = null
 
-
-    $('.rXI---markers a').click ->
-        x = $ @
-        cls = x.attr 'class'
-        if $('#rXI---main').hasClass cls
-            $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
-            whichMarker = null
-        else
-            $('#rXI---main')
-                .removeClass('rXI---1Marker rXI---2Marker')
-                .addClass(cls)
-            whichMarker = cls
-        window.getSelection().removeAllRanges()
-
     markupWordsAndBlanks = (text) ->
         wordRE = /^[а-яА-Я0-9]+/
         nonWordRE = /^[^а-яА-Я0-9]*/
@@ -52,13 +39,6 @@ do (q=rXI$h, $=jQuery) ->
                     data-order='#{ count }'>#{ match[0] }</span>"""
             i = i + match[0].length
         html
-
-    ### {% if HTML %} ###
-    #console.log markupWordsAndBlanks q.te
-    ### {% endif %} ###
-
-    textareaInput.html markupWordsAndBlanks q.te
-    authorElem.html q.au
 
     updateSelectionQuizResults = (element) ->
         el = $(element)
@@ -185,13 +165,6 @@ do (q=rXI$h, $=jQuery) ->
         false
     processSelection.counter = 0
 
-    textareaInput.on 'dragstart', -> false
-    textareaInput.on 'mouseup', processSelection
-
-
-
-
-
     getWords = (text) ->
         text.match /[а-яА-Я0-9]+/g
 
@@ -227,8 +200,6 @@ do (q=rXI$h, $=jQuery) ->
         score = getScore getPuNumbers(getBlanks text), q.pu, q.ma
         slugInput.attr 'value', getPuSlug text
         scoreInput.attr 'value', score
-
-    textareaInput.keyup changeAnswer
 
     getTextWithAnswers = ->
         words = getWords q.te
@@ -278,6 +249,36 @@ do (q=rXI$h, $=jQuery) ->
             ctx.bezierCurveTo 0, 2, width * 3 / 2, 0, width, 0
             ctx.stroke()
 
+
+
+
+    # Настройка обработчиков разных событий
+    # Обработчики выбора маркеров при нажатии
+    $('.rXI---markers a').click ->
+        x = $ @
+        cls = x.attr 'class'
+        if $('#rXI---main').hasClass cls
+            $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
+            whichMarker = null
+        else
+            $('#rXI---main')
+                .removeClass('rXI---1Marker rXI---2Marker')
+                .addClass(cls)
+            whichMarker = cls
+        window.getSelection().removeAllRanges()
+
+    # Обработчики выделения текста мышкой
+    textareaInput.on 'dragstart', -> false
+    textareaInput.on 'mouseup', processSelection
+
+    # Обработчик нажатия клавиш клавиатуры
+    textareaInput.keyup changeAnswer
+
+    # Заолнение полей цитаты и автора цитаты
+    textareaInput.html markupWordsAndBlanks q.te
+    authorElem.html q.au
+
+    # Настройка окружения на тестирование или показ результатов
     if not slugInput.attr 'value'
         changeAnswer()
     else
