@@ -253,8 +253,8 @@ do (q=rXI$h, $=jQuery) ->
 
 
 
-    # Настройка обработчиков разных событий
-    # Обработчики выбора маркеров при нажатии
+    # Настройка обработчиков событий
+    # - Обработчики щелчка мышки для выбора маркера
     $('.rXI---markers a').click ->
         x = $ @
         cls = x.attr 'class'
@@ -268,14 +268,14 @@ do (q=rXI$h, $=jQuery) ->
             whichMarker = cls
         window.getSelection().removeAllRanges()
 
-    # Обработчики выделения текста мышкой
+    # - Обработчики выделения текста мышкой
     textareaInput.on 'dragstart', -> false
     textareaInput.on 'mouseup', processSelection
 
-    # Обработчик нажатия клавиш клавиатуры
+    # - Обработчик нажатия клавиш клавиатуры
     textareaInput.keyup changeAnswer
 
-    # Заолнение полей цитаты и автора цитаты
+    # Заполнение полей цитаты и автора
     textareaInput.html markupWordsAndBlanks q.te
     authorElem.html q.au
 
