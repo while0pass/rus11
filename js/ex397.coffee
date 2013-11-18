@@ -224,9 +224,12 @@ do (q=rXI$h, $=jQuery) ->
                 x.append('<canvas class="good puCorrectness"/>')
 
     showSelectionAnswers = ->
-        for x in $('.rXI---selection')
-            x = $ x
+        selections = $('.rXI---selection')
+        rightSelections = q.se
+        for i in [0...selections.length]
+            x = $ selections[i]
             ranges = x.find('input').first().attr('value').split ','
+            rightRanges = rightSelections[i].split ','
             for r in ranges
                 if r is '0-0' then continue # NOTE: Пустой диапазон. Ничего
                                             # данным маркером не выделено.
@@ -234,6 +237,11 @@ do (q=rXI$h, $=jQuery) ->
                 start = textareaInput.find(".rXI---word[data-order='#{start}']")
                 end = textareaInput.find(".rXI---word[data-order='#{end}']")
                 processSelection x.attr('data-marker'), start, end
+                if rightRanges.indexOf(r) > -1
+                    start.append('<canvas class="good seCorrectness"/>')
+                else
+                    start.append('<canvas class="bad seCorrectness"/>')
+
 
     adjustCanvas = ->
         textareaInput.find('canvas.bad.puCorrectness').each ->
@@ -267,6 +275,43 @@ do (q=rXI$h, $=jQuery) ->
             ctx.beginPath()
             ctx.moveTo 0, 5
             ctx.bezierCurveTo 0, 2, width * 3 / 2, 0, width, 0
+            ctx.stroke()
+        textareaInput.find('canvas.bad.seCorrectness').each ->
+            ctx = @getContext '2d'
+            parent = $(@).parent()
+            parent.css 'position', 'relative'
+            width = 10
+            $(@).width width
+            @width = width
+            @height = 10
+            ctx.strokeStyle = 'red'
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            ctx.lineWidth = 2
+            ctx.beginPath()
+            ctx.moveTo 2, 8
+            ctx.bezierCurveTo 2, 5, 6, 4, 8, 2
+            ctx.stroke()
+            ctx.beginPath()
+            ctx.moveTo 3, 2
+            ctx.bezierCurveTo 7, 7, 6, 4, 8, 8
+            ctx.stroke()
+        textareaInput.find('canvas.good.seCorrectness').each ->
+            ctx = @getContext '2d'
+            parent = $(@).parent()
+            parent.css 'position', 'relative'
+            width = 10
+            $(@).width width
+            @width = width
+            @height = 10
+            ctx.strokeStyle = 'green'
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            ctx.lineWidth = 2
+            ctx.beginPath()
+            ctx.moveTo 2, 5
+            ctx.bezierCurveTo 2, 5, 2, 6, 5, 8
+            ctx.bezierCurveTo 6, 7, 6, 4, 8, 2
             ctx.stroke()
 
 
@@ -307,7 +352,7 @@ do (q=rXI$h, $=jQuery) ->
         changeAnswer()
         updateSelectionQuizResults()
     else
-        $('.rXI---markers').addClass('answers')
+        $('#rXI---main').addClass('answers')
         textareaInput.html markupWordsAndBlanks q.te
         textareaInput.attr 'contenteditable', false
         showPunctuationAnswers()
@@ -318,7 +363,7 @@ do (q=rXI$h, $=jQuery) ->
     authorElem.dblclick ->
         slugInput.toggleClass 'correct'
         if slugInput.hasClass 'correct'
-            $('.rXI---markers').addClass('answers')
+            $('#rXI---main').addClass('answers')
             $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
             whichMarker = null
             textareaInput.html markupWordsAndBlanks q.te
@@ -327,7 +372,7 @@ do (q=rXI$h, $=jQuery) ->
             showSelectionAnswers()
             adjustCanvas()
         else
-            $('.rXI---markers').removeClass('answers')
+            $('#rXI---main').removeClass('answers')
             textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', true
             changeAnswer()

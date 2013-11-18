@@ -50,6 +50,16 @@ $padding = (0.7 * $padX) $padX
             background-color: i[3]
             color: i[2]
 
+    &.answers
+        #rXI---textarea
+            line-height: 1.4em
+        .rXI---markers
+            a
+                padding-left: $padX
+                margin: 10px auto
+            span
+                display: none
+
 #rXI---author
     text-align: right
     padding: $padding
@@ -103,6 +113,11 @@ $padding = (0.7 * $padX) $padX
             position: absolute
             bottom: -5px
             left: -4px
+        canvas.good.seCorrectness
+        canvas.bad.seCorrectness
+            position: absolute
+            top: -8px
+            left: 0
 
 #rXI---score
 #rXI---slug
@@ -144,9 +159,3 @@ $padding = (0.7 * $padX) $padX
 
             &:hover
                 cursor: pointer !important
-    &.answers
-        a
-            padding-left: $padX
-            margin: 10px auto
-        span
-            display: none
