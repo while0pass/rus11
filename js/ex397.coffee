@@ -40,8 +40,10 @@ do (q=rXI$h, $=jQuery) ->
             i = i + match[0].length
         html
 
-    updateSelectionQuizResults = (element) ->
-        el = $(element)
+    updateSelectionQuizResults = ->
+        updateSelectionQuizResults.counter || (updateSelectionQuizResults.counter=1)
+        console.log updateSelectionQuizResults.counter++
+        el = $(textareaInput)
         ranges = {}
 
         $('.rXI---markers a').each ->
@@ -92,21 +94,18 @@ do (q=rXI$h, $=jQuery) ->
             x.find('input').first().attr 'value', slug
             x.find('input').last().attr 'value', score
 
-    processSelection = ->
+    processSelection = (whichMarker, start, end) ->
         sel = document.getSelection()
-        element = @
-        if whichMarker
-            start = $(sel.anchorNode).closest '.rXI---word, .rXI---nonWord'
-            end = $(sel.focusNode).closest '.rXI---word, .rXI---nonWord'
-            console.log start.is('.rXI---word, .rXI---nonWord'), end.is('.rXI---word, .rXI---nonWord')
+        start = start or $(sel.anchorNode).closest '.rXI---word, .rXI---nonWord'
+        end = end or $(sel.focusNode).closest '.rXI---word, .rXI---nonWord'
 
+        if whichMarker
             if sel.isCollapsed
                 seId = start.attr 'data-seId'
                 if seId
                     $("[data-seId='#{ seId }']")
                         .removeClass(seId.replace /[0-9]+$/, '')
                         .removeAttr 'data-seId'
-                    updateSelectionQuizResults element
                     return false
             sel.removeAllRanges()
 
@@ -123,45 +122,53 @@ do (q=rXI$h, $=jQuery) ->
                 direction = if isStartWord then 'left' else 'right'
                 # Случай, когда ни одно слово не выделено.
                 if not isStartWord and not isEndWord
-                    updateSelectionQuizResults element
                     return false
 
             if not isStartWord
                 traverseOp = if direction is 'right' then 'next' else 'prev'
                 start = start[traverseOp]('.rXI---word')
+                startOrder = parseInt start.attr 'data-order'
                 isStartWord = true
             if not isEndWord
                 traverseOp = if direction is 'right' then 'prev' else 'next'
                 end = end[traverseOp]('.rXI---word')
+                endOrder = parseInt end.attr 'data-order'
                 isEndWord = true
 
-            [start, end] = [end, start] if direction is 'left'
+            if direction is 'left'
+                [start, end] = [end, start]
+                [startOrder, endOrder] = [endOrder, startOrder]
 
-            while typeof start.get(0) isnt 'undefined' and
-            parseInt(start.attr 'data-order') <= parseInt end.attr 'data-order'
-                seId = whichMarker + processSelection.counter
-                start.prevAll('.maybeMarked')
-                    .removeClass('rXI---1Marker rXI---2Marker')
-                    .removeClass('maybeMarked')
-                    .addClass(whichMarker)
-                    .attr 'data-seId', seId
-                if start.is('[data-seId]') and
-                start.attr('data-seId') isnt seId
-                    $("[data-seId='#{ start.attr('data-seId') }']")
-                        .removeClass('rXI---1Marker rXI---2Marker')
-                        .addClass(whichMarker)
-                        .attr 'data-seId', seId
-                else
-                    start
-                        .removeClass('rXI---1Marker rXI---2Marker')
-                        .addClass(whichMarker)
-                        .attr 'data-seId', seId
-                start = start.nextAll('.rXI---nonWord').first()
-                start.addClass 'maybeMarked'
-                start = start.nextAll('.rXI---word').first()
-            start.prevAll('.maybeMarked').removeClass 'maybeMarked'
+            seId = whichMarker + processSelection.counter
+            startToEndFilter = (startOrder, endOrder) ->
+                ->
+                    item = $ @
+                    order = parseInt item.attr 'data-order'
+                    if item.is('.rXI---word')
+                        startOrder <= order <= endOrder
+                    else
+                        startOrder < order <= endOrder
+            erase = ->
+                $(@).removeClass('rXI---1Marker rXI---2Marker')
+                    .removeAttr('data-seId')
+            highlight = ->
+                erase.call(@)
+                $(@).addClass(whichMarker).attr 'data-seId', seId
+            marker = (seId) -> seId.match(/(.*?)\d+$/)[1]
+
+            for x in $('.rXI---nonWord, .rXI---word').filter(startToEndFilter(startOrder, endOrder))
+                x = $ x
+                oldSeId = x.attr 'data-seId'
+                if oldSeId
+                    y = $("[data-seId='#{ oldSeId }']")
+                    if marker(oldSeId) is whichMarker
+                        y.each highlight
+                    else
+                        y.each erase
+                highlight.call(x)
+
             processSelection.counter++
-        updateSelectionQuizResults element
+
         false
     processSelection.counter = 0
 
@@ -213,6 +220,19 @@ do (q=rXI$h, $=jQuery) ->
             else if q.ma[i]
                 x.addClass('good')
                 x.append('<canvas class="puCorrectness"/>')
+
+    showSelectionAnswers = ->
+        console.log $('.rXI---selection')
+        for x in $('.rXI---selection')
+            x = $ x
+            ranges = x.find('input').first().attr('value').split ','
+            console.log ranges
+            for r in ranges
+                if r is '' then continue
+                [start, end] = r.split '-'
+                start = textareaInput.find(".rXI---word[data-order='#{start}']")
+                end = textareaInput.find(".rXI---word[data-order='#{end}']")
+                processSelection x.attr('data-marker'), start, end
 
     adjustCanvas = ->
         textareaInput.find('.bad canvas').each ->
@@ -268,7 +288,9 @@ do (q=rXI$h, $=jQuery) ->
 
     # - Обработчики выделения текста мышкой
     textareaInput.on 'dragstart', -> false
-    textareaInput.on 'mouseup', processSelection
+    textareaInput.on 'mouseup', ->
+        processSelection whichMarker
+        updateSelectionQuizResults()
 
     # - Обработчик нажатия клавиш клавиатуры
     textareaInput.keyup changeAnswer
@@ -280,11 +302,13 @@ do (q=rXI$h, $=jQuery) ->
     # Настройка окружения на тестирование или показ результатов
     if not slugInput.attr 'value'
         changeAnswer()
+        updateSelectionQuizResults()
     else
         $('.rXI---markers').hide()
         textareaInput.html markupWordsAndBlanks q.te
         textareaInput.attr 'contenteditable', false
         showPunctuationAnswers()
+        showSelectionAnswers()
         adjustCanvas()
 
     ### {% if HTML %} ###
@@ -295,11 +319,13 @@ do (q=rXI$h, $=jQuery) ->
             textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', false
             showPunctuationAnswers()
+            showSelectionAnswers()
             adjustCanvas()
         else
             $('.rXI---markers').show()
             textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', true
             changeAnswer()
+            updateSelectionQuizResults()
     ### {% endif %} ###
     undefined
