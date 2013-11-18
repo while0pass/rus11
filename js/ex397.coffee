@@ -49,31 +49,31 @@ do (q=rXI$h, $=jQuery) ->
 
         for word in el.find('.rXI---word')
             x = $ word
-            currentSelid = x.attr 'data-selid'
-            currentMarker = currentSelid?.replace /[0-9]+$/, ''
+            currentSeId = x.attr 'data-seId'
+            currentMarker = currentSeId?.replace /[0-9]+$/, ''
             order = x.attr 'data-order'
 
-            if not start and currentSelid
+            if not start and currentSeId
                 start = order
                 end = null
-                selid = currentSelid
-            else if start and currentSelid
-                if selid isnt currentSelid
+                seId = currentSeId
+            else if start and currentSeId
+                if seId isnt currentSeId
                     end = '' + (parseInt(order) - 1)
-                    ranges[selid.replace /[0-9]+$/, ''].push(start + '-' + end)
+                    ranges[seId.replace /[0-9]+$/, ''].push(start + '-' + end)
                     start = order
                     end = null
-                    selid = currentSelid
-            else if start and not currentSelid
+                    seId = currentSeId
+            else if start and not currentSeId
                 end = '' + (parseInt(order) - 1)
-                ranges[selid.replace /[0-9]+$/, ''].push(start + '-' + end)
+                ranges[seId.replace /[0-9]+$/, ''].push(start + '-' + end)
                 start = null
                 end = null
-                selid = null
+                seId = null
 
         if start
             end = order
-            ranges[selid.replace /[0-9]+$/, ''].push(start + '-' + end)
+            ranges[seId.replace /[0-9]+$/, ''].push(start + '-' + end)
 
         for x in el.nextAll('.rXI---selection')
             x = $ x
@@ -101,11 +101,11 @@ do (q=rXI$h, $=jQuery) ->
             console.log start.is('.rXI---word, .rXI---nonWord'), end.is('.rXI---word, .rXI---nonWord')
 
             if sel.isCollapsed
-                selid = start.attr 'data-selid'
-                if selid
-                    $("[data-selid='#{ selid }']")
-                        .removeClass(selid.replace /[0-9]+$/, '')
-                        .removeAttr 'data-selid'
+                seId = start.attr 'data-seId'
+                if seId
+                    $("[data-seId='#{ seId }']")
+                        .removeClass(seId.replace /[0-9]+$/, '')
+                        .removeAttr 'data-seId'
                     updateSelectionQuizResults element
                     return false
             sel.removeAllRanges()
@@ -139,23 +139,23 @@ do (q=rXI$h, $=jQuery) ->
 
             while typeof start.get(0) isnt 'undefined' and
             parseInt(start.attr 'data-order') <= parseInt end.attr 'data-order'
-                selid = whichMarker + processSelection.counter
+                seId = whichMarker + processSelection.counter
                 start.prevAll('.maybeMarked')
                     .removeClass('rXI---1Marker rXI---2Marker')
                     .removeClass('maybeMarked')
                     .addClass(whichMarker)
-                    .attr 'data-selid', selid
-                if start.is('[data-selid]') and
-                start.attr('data-selid') isnt selid
-                    $("[data-selid='#{ start.attr('data-selid') }']")
+                    .attr 'data-seId', seId
+                if start.is('[data-seId]') and
+                start.attr('data-seId') isnt seId
+                    $("[data-seId='#{ start.attr('data-seId') }']")
                         .removeClass('rXI---1Marker rXI---2Marker')
                         .addClass(whichMarker)
-                        .attr 'data-selid', selid
+                        .attr 'data-seId', seId
                 else
                     start
                         .removeClass('rXI---1Marker rXI---2Marker')
                         .addClass(whichMarker)
-                        .attr 'data-selid', selid
+                        .attr 'data-seId', seId
                 start = start.nextAll('.rXI---nonWord').first()
                 start.addClass 'maybeMarked'
                 start = start.nextAll('.rXI---word').first()
