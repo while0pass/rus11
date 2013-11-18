@@ -278,6 +278,8 @@ do (q=rXI$h, $=jQuery) ->
     # - Обработчики щелчка мышки для выбора маркера
     $('.rXI---markers a').click ->
         x = $ @
+        if x.parent().is('.answers')
+            return
         cls = x.attr 'class'
         if $('#rXI---main').hasClass cls
             $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
@@ -307,7 +309,7 @@ do (q=rXI$h, $=jQuery) ->
         changeAnswer()
         updateSelectionQuizResults()
     else
-        $('.rXI---markers').hide()
+        $('.rXI---markers').addClass('answers')
         textareaInput.html markupWordsAndBlanks q.te
         textareaInput.attr 'contenteditable', false
         showPunctuationAnswers()
@@ -318,14 +320,16 @@ do (q=rXI$h, $=jQuery) ->
     authorElem.dblclick ->
         slugInput.toggleClass 'correct'
         if slugInput.hasClass 'correct'
-            $('.rXI---markers').hide()
+            $('.rXI---markers').addClass('answers')
+            $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
+            whichMarker = null
             textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', false
             showPunctuationAnswers()
             showSelectionAnswers()
             adjustCanvas()
         else
-            $('.rXI---markers').show()
+            $('.rXI---markers').removeClass('answers')
             textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', true
             changeAnswer()
