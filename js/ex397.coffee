@@ -41,8 +41,6 @@ do (q=rXI$h, $=jQuery) ->
         html
 
     updateSelectionQuizResults = ->
-        updateSelectionQuizResults.counter || (updateSelectionQuizResults.counter=1)
-        console.log updateSelectionQuizResults.counter++
         el = $(textareaInput)
         ranges = {}
 
@@ -222,11 +220,9 @@ do (q=rXI$h, $=jQuery) ->
                 x.append('<canvas class="puCorrectness"/>')
 
     showSelectionAnswers = ->
-        console.log $('.rXI---selection')
         for x in $('.rXI---selection')
             x = $ x
             ranges = x.find('input').first().attr('value').split ','
-            console.log ranges
             for r in ranges
                 if r is '' then continue
                 [start, end] = r.split '-'
