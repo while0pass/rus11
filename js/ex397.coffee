@@ -219,11 +219,9 @@ do (q=rXI$h, $=jQuery) ->
             x = textareaInput.find(".rXI---nonWord[data-order='#{ i+1 }']")
             x.html(pu[i])
             if puNumbers[i] isnt q.pu[i]
-                x.addClass('bad')
-                x.append('<canvas class="puCorrectness"/>')
+                x.append('<canvas class="bad puCorrectness"/>')
             else if q.ma[i]
-                x.addClass('good')
-                x.append('<canvas class="puCorrectness"/>')
+                x.append('<canvas class="good puCorrectness"/>')
 
     showSelectionAnswers = ->
         for x in $('.rXI---selection')
@@ -238,7 +236,7 @@ do (q=rXI$h, $=jQuery) ->
                 processSelection x.attr('data-marker'), start, end
 
     adjustCanvas = ->
-        textareaInput.find('.bad canvas').each ->
+        textareaInput.find('canvas.bad.puCorrectness').each ->
             ctx = @getContext '2d'
             parent = $(@).parent()
             parent.css 'position', 'relative'
@@ -254,7 +252,7 @@ do (q=rXI$h, $=jQuery) ->
             ctx.moveTo 0, 5
             ctx.bezierCurveTo 0, 2, width * 3 / 2, 0, width, 0
             ctx.stroke()
-        textareaInput.find('.good canvas').each ->
+        textareaInput.find('canvas.good.puCorrectness').each ->
             ctx = @getContext '2d'
             parent = $(@).parent()
             parent.css 'position', 'relative'
