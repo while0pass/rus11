@@ -75,6 +75,12 @@ do (q=rXI$h, $=jQuery) ->
             end = order
             ranges[seId.replace /[0-9]+$/, ''].push(start + '-' + end)
 
+        for own key, value of ranges
+            if value.length is 0
+                value.push('0-0')  # NOTE: Особый нулевой диапазон. Означает,
+                                   # что ни один диапазон слов данным маркером
+                                   # не выделен.
+
         for x in el.nextAll('.rXI---selection')
             x = $ x
             markerRanges = ranges[x.attr 'data-marker']
@@ -224,7 +230,8 @@ do (q=rXI$h, $=jQuery) ->
             x = $ x
             ranges = x.find('input').first().attr('value').split ','
             for r in ranges
-                if r is '' then continue
+                if r is '0-0' then continue # NOTE: Пустой диапазон. Ничего
+                                            # данным маркером не выделено.
                 [start, end] = r.split '-'
                 start = textareaInput.find(".rXI---word[data-order='#{start}']")
                 end = textareaInput.find(".rXI---word[data-order='#{end}']")
