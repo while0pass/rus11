@@ -202,7 +202,6 @@ do (q=rXI$h, $=jQuery) ->
         scoreInput.attr 'value', score
 
     showPunctuationAnswers = ->
-        textareaInput.html markupWordsAndBlanks q.te
         pu = slugInput.attr('value').split slugSeparator
         puNumbers = getPuNumbers pu
         for i in [0...puNumbers.length]
@@ -283,6 +282,7 @@ do (q=rXI$h, $=jQuery) ->
         changeAnswer()
     else
         $('.rXI---markers').hide()
+        textareaInput.html markupWordsAndBlanks q.te
         textareaInput.attr 'contenteditable', false
         showPunctuationAnswers()
         adjustCanvas()
@@ -292,13 +292,14 @@ do (q=rXI$h, $=jQuery) ->
         slugInput.toggleClass 'correct'
         if slugInput.hasClass 'correct'
             $('.rXI---markers').hide()
+            textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', false
             showPunctuationAnswers()
             adjustCanvas()
         else
             $('.rXI---markers').show()
+            textareaInput.html markupWordsAndBlanks q.te
             textareaInput.attr 'contenteditable', true
-            textareaInput.html q.te
             changeAnswer()
     ### {% endif %} ###
     undefined
