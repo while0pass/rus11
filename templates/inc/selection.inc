@@ -8,10 +8,14 @@
     </a>
 </div>
 
-<div id="rXI---textarea" contenteditable="true"></div>
-<div id="rXI---author"></div>
+<script type="application/javascript"> var rXI$h = []; </script>
 
-{% for SELECTION in SELECT %}
+{% for item in DATASET %}
+<div class="rXI---sentence">
+<div class="rXI---textarea" contenteditable="true"></div>
+<div class="rXI---author"></div>
+
+{% for SELECTION in item.SELECT %}
 <div data-marker="rXI---{{ loop.index }}Marker" class="rXI---selection">
     {% if HTML %}
         <input type="text" />
@@ -23,14 +27,14 @@
 </div>
 {% endfor %}
 
-<div id="rXI---slug">
+<div class="rXI---slug">
     {% if HTML %}
         <input type="text" />
     {% else %}
-        {0:SA:%100%{{ SLUG }}}
+        {0:SA:%100%{{ item.SLUG }}}
     {% endif %}
 </div>
-<div id="rXI---score">
+<div class="rXI---score">
     {% if HTML %}
         <input type="text" />
     {% else %}
@@ -39,11 +43,13 @@
 </div>
 
 <script type="application/javascript">
-    var rXI$h = {
-            au: '{{ AUTHOR }}',
-            te: '{{ TEXT }}',
-            pu: {{ PUNCT }},
-            ma: {{ MASK }},
-            se: [ {% for S in SELECT %} '{{ S }}', {% endfor %} ],
-        };
+    rXI$h.push({
+            au: '{{ item.AUTHOR }}',
+            te: '{{ item.TEXT }}',
+            pu: {{ item.PUNCT }},
+            ma: {{ item.MASK }},
+            se: [ {% for S in item.SELECT %} '{{ S }}', {% endfor %} ],
+        });
 </script>
+</div><!-- .rXI---sentence -->
+{% endfor %}

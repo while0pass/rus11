@@ -88,7 +88,7 @@ module.exports = function (grunt) {
 
     coffee: {
         options: {
-            bare: true,
+            bare: false,
         },
         target: {
             expand: true,

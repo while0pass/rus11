@@ -1,4 +1,23 @@
-do (q=rXI$h, $=jQuery) ->
+do ($=jQuery, q=rXI$h) ->
+ whichMarker = null
+ # - Обработчики щелчка мышки для выбора маркера
+ $('.rXI---markers a').click ->
+     x = $ @
+     if $('#rXI---main').is('.answers') then return
+     cls = x.attr 'class'
+     if $('#rXI---main').hasClass cls
+         $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
+         whichMarker = null
+     else
+         $('#rXI---main')
+             .removeClass('rXI---1Marker rXI---2Marker')
+             .addClass(cls)
+         whichMarker = cls
+     window.getSelection().removeAllRanges()
+
+ sentences = $('.rXI---sentence')
+ for i in [0...sentences.length]
+  do ($, q=q[i], root=sentences[i]) ->
 
     puMap =
         '':  0
@@ -14,12 +33,12 @@ do (q=rXI$h, $=jQuery) ->
         '.': 8
         '«': 9
         '»': 9
-    textareaInput = $('#rXI---textarea')
-    slugInput = $('#rXI---slug').find 'input[type="text"]'
-    scoreInput = $('#rXI---score').find 'input[type="text"]'
-    authorElem = $('#rXI---author')
+    root = $ root
+    textareaInput = root.find('.rXI---textarea')
+    slugInput = root.find('.rXI---slug').find 'input[type="text"]'
+    scoreInput = root.find('.rXI---score').find 'input[type="text"]'
+    authorElem = root.find('.rXI---author')
     slugSeparator = '|'
-    whichMarker = null
 
     markupWordsAndBlanks = (text) ->
         wordRE = /^[а-яА-Я0-9]+/
@@ -107,7 +126,7 @@ do (q=rXI$h, $=jQuery) ->
             if sel.isCollapsed
                 seId = start.attr 'data-seId'
                 if seId
-                    $("[data-seId='#{ seId }']")
+                    textareaInput.find("[data-seId='#{ seId }']")
                         .removeClass(seId.replace /[0-9]+$/, '')
                         .removeAttr 'data-seId'
                     return false
@@ -160,11 +179,12 @@ do (q=rXI$h, $=jQuery) ->
                 $(@).addClass(whichMarker).attr 'data-seId', seId
             marker = (seId) -> seId.match(/(.*?)\d+$/)[1]
 
-            for x in $('.rXI---nonWord, .rXI---word').filter(startToEndFilter(startOrder, endOrder))
+            for x in textareaInput.find('.rXI---nonWord, .rXI---word')
+                        .filter(startToEndFilter(startOrder, endOrder))
                 x = $ x
                 oldSeId = x.attr 'data-seId'
                 if oldSeId
-                    y = $("[data-seId='#{ oldSeId }']")
+                    y = textareaInput.find("[data-seId='#{ oldSeId }']")
                     if marker(oldSeId) is whichMarker
                         y.each highlight
                     else
@@ -224,7 +244,7 @@ do (q=rXI$h, $=jQuery) ->
                 x.append('<canvas class="good puCorrectness"/>')
 
     showSelectionAnswers = ->
-        selections = $('.rXI---selection')
+        selections = root.find('.rXI---selection')
         rightSelections = q.se
         for i in [0...selections.length]
             x = $ selections[i]
@@ -318,22 +338,6 @@ do (q=rXI$h, $=jQuery) ->
 
 
     # Настройка обработчиков событий
-    # - Обработчики щелчка мышки для выбора маркера
-    $('.rXI---markers a').click ->
-        x = $ @
-        if x.parent().is('.answers')
-            return
-        cls = x.attr 'class'
-        if $('#rXI---main').hasClass cls
-            $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
-            whichMarker = null
-        else
-            $('#rXI---main')
-                .removeClass('rXI---1Marker rXI---2Marker')
-                .addClass(cls)
-            whichMarker = cls
-        window.getSelection().removeAllRanges()
-
     # - Обработчики выделения текста мышкой
     textareaInput.on 'dragstart', -> false
     textareaInput.on 'mouseup', ->
