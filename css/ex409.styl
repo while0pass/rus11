@@ -1,0 +1,107 @@
+$beige = #9a8b62
+$beigePastel = #e3dcc0
+$blue = #153450
+$bluePastel = #8fbcdb
+$green = #5e7703
+$greenPastel = #c1cc89
+$red = rgb(176, 102, 96)
+$redPastel = #eac3b8
+$yellow = #ca8f42
+$yellowPastel = #f9d3a5
+
+$padX = 2em
+$padding = (0.7 * $padX) $padX
+
+#rXI---main
+    color: #333
+    font-family: Arial, 'Lucida Grande', sans-serif
+    font-size: 12pt
+    margin: auto
+    max-width: 40em
+
+    .rXI---note
+        padding: $padding
+        background-color: rgb(255, 255, 204)
+        color: rgb(0, 0, 153)
+        border-radius: 10px
+        margin-bottom: 2em
+
+.rXI---author
+    font-style: italic
+    white-space: nowrap
+    color: $beige
+    opacity: 0.7
+
+    &::selection
+        background-color: $beigePastel
+
+.rXI---sentences
+    background-color: $beigePastel
+    color: $beige
+    border: none
+    border-radius: 5px
+    padding: (0.75 * $padX) $padX
+    min-height: 1em
+    outline: none
+    position: relative
+    margin: 10px auto
+    line-height: 1.6em
+
+    &::selection
+    & *::selection
+        background-color: transparent
+        color: transparent
+
+    .nobr
+        white-space: nowrap
+
+.rXI---sentence:not(:last-of-type)
+    margin-bottom: 10px
+
+.rXI---input
+    font-size: inherit
+    color: inherit
+    position: relative
+
+    & > span.widthGauge
+        position: absolute
+        visibility: hidden
+        margin: 0
+        padding: 0
+        border: none
+
+    img
+        display: none
+
+    input
+        margin: 0
+        padding: 0 0.3em
+        border: 1px solid $beigePastel
+        background-color: $bluePastel
+        color: $blue
+        border-radius: 4px
+        outline: none
+        font-size: inherit
+
+        &.correct
+            color: $green
+            background-color: $greenPastel
+
+        &.incorrect
+            color: $red
+            background-color: $redPastel
+
+    input:not([value])
+        background-color: $redPastel
+
+    $PLACEHOLDER()
+        color: $red
+
+    input::-webkit-input-placeholder
+        $PLACEHOLDER()
+
+    input::input-placeholder
+        $PLACEHOLDER()
+
+    input::-moz-placeholder
+        $PLACEHOLDER()
