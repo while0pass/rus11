@@ -50,67 +50,49 @@ $padding = (0.7 * $padX) $padX
             background-color: i[3]
             color: i[2]
 
-    &.answers
-        .rXI---textarea
-            line-height: 1.4em
-
-            &::before
-                bottom: 0.25em
-
-            &::after
-                top: 0.25em
-
-        .rXI---markers
-            a
-                padding-left: $padX
-                margin: 10px auto
-            span
-                display: none
+    &.answers .rXI---markers
+        a
+            padding-left: $padX
+            margin: 10px auto
+        span
+            display: none
 
 .rXI---author
     text-align: right
-    padding: $padding
+    padding: 0
     font-style: italic
     white-space: nowrap
     color: $beige
+    opacity: 0.7
+    margin-top: 0.7em
 
     &::selection
         background-color: $beigePastel
+
 .rXI---textarea
+    position: relative
+    outline: none
+    min-height: 1em
+    border: none
+    margin: 0
+
+.rXI---sentence
     background-color: $beigePastel
     color: $beige
     border: none
     border-radius: 5px
-    padding: $padding
+    padding: $padding (0.5 * $padX)
     min-height: 1em
     outline: none
     position: relative
+    margin: 10px auto
 
     &::selection
     & *::selection
         background-color: transparent
         color: transparent
 
-    &::before
-    &::after
-        position: absolute
-        font-size: 52pt
-        font-family: 'Times New Roman', Times, serif
-        font-weight: bold
-        color: $beige
-        opacity: 0.2
-
-    &::before
-        content: '„'
-        bottom: -0.2em
-        left: -0.15em
-
-    &::after
-        content: '“'
-        top: -0.2em
-        right: -0.15em
-
-    span
+    .rXI---textarea span
         position: relative
 
         canvas.good.puCorrectness
