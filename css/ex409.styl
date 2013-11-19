@@ -64,6 +64,7 @@ $padding = (0.7 * $padX) $padX
     position: relative
 
     & > span.widthGauge
+        white-space: pre
         position: absolute
         visibility: hidden
         margin: 0
@@ -83,6 +84,10 @@ $padding = (0.7 * $padX) $padX
         outline: none
         font-size: inherit
 
+        &.rXI---placeheld
+            background-color: $redPastel
+            color: $red
+
         &.correct
             color: $green
             background-color: $greenPastel
@@ -90,18 +95,3 @@ $padding = (0.7 * $padX) $padX
         &.incorrect
             color: $red
             background-color: $redPastel
-
-    input:not([value])
-        background-color: $redPastel
-
-    $PLACEHOLDER()
-        color: $red
-
-    input::-webkit-input-placeholder
-        $PLACEHOLDER()
-
-    input::input-placeholder
-        $PLACEHOLDER()
-
-    input::-moz-placeholder
-        $PLACEHOLDER()
