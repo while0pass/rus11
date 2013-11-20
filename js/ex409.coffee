@@ -1,13 +1,30 @@
 do ($=jQuery) ->
-    updateWidth = ->
+
+    updateFormWidget = ->
         x = $ @
         y = x.siblings '.widthGauge'
         y = x.parent().siblings '.widthGauge' unless y.get(0)
-        text = x.prop('value') or x.data 'placeholder'
+
+        if not x.prop('value') and x.data('placeholder') isnt '...'
+            x.prop('value', x.data 'placeholder')
+        text = x.prop('value') or '...'  # NOTE: Дефолтное значение '...'
+            # выбрано не случайно. Если поле не заполнено, у него выставится
+            # такая ширина, как если бы там стоял стандартный текст-заменитель.
+
+        x.attr 'value', text  # Обновление html-атрибута обязательно, если мы
+            # хотим, чтобы мудловский модуль тестов правильно подхватывал
+            # значения из инпутов. Иначе, кажется, можно было бы
+            # довольствоваться тем, что изменено свойство (!) ``value``
+            # DOM-элементов. Но для Мудла этого не достаточно, для него надо
+            # чтобы изменен был также html-атрибут ``value`` на инпуте.
+
         y.html text
-        x.css 'width', y.innerWidth()
-        x.closest('.rXI---input').css 'width', y.innerWidth()
-        x.closest('.subquestion').css 'width', y.innerWidth()
+
+        width = y.innerWidth()
+        x.css 'width', width
+        x.closest('.rXI---input').css 'width', width
+        x.closest('.subquestion').css 'width', width
+
 
     for i in $ '.rXI---input'
         i = $ i
@@ -18,8 +35,8 @@ do ($=jQuery) ->
         i.prop 'value', placeholder
         i.addClass 'rXI---placeheld'
         i.removeAttr 'size'
-        updateWidth.call i.get 0
-        i.on 'keyup', updateWidth
+        updateFormWidget.call i.get 0
+        i.on 'keyup', updateFormWidget
         if placeholder is '...'
             i.on 'focus', (event) ->
                 x = $ @
@@ -30,6 +47,7 @@ do ($=jQuery) ->
                 if not x.prop('value')
                     x.addClass 'rXI---placeheld'
                     x.prop 'value', '...'
+                    updateFormWidget.call @
         else
             i.on 'focus', (event) -> $(@).removeClass 'rXI---placeheld'
             i.on 'blur', (event) ->
@@ -39,4 +57,4 @@ do ($=jQuery) ->
                 if not x.prop('value')
                     x.addClass 'rXI---placeheld'
                     x.prop('value', x.data 'placeholder')
-
+                    updateFormWidget.call @
