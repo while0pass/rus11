@@ -3,11 +3,7 @@ do ($=jQuery) ->
         x = $ @
         y = x.siblings '.widthGauge'
         y = x.parent().siblings '.widthGauge' unless y.get(0)
-        if x.val()
-            x.attr 'value', x.val()
-        else
-            x.removeAttr 'value'
-        text = x.val() or x.attr 'data-placeholder'
+        text = x.prop('value') or x.data 'placeholder'
         y.html text
         x.css 'width', y.innerWidth()
         x.closest('.rXI---input').css 'width', y.innerWidth()
@@ -15,29 +11,32 @@ do ($=jQuery) ->
 
     for i in $ '.rXI---input'
         i = $ i
-        placeholder = i.attr 'data-placeholder'
+        placeholder = i.data 'placeholder'
         i.append '<span class="widthGauge"/>'
         i = i.find 'input'
-        i.attr 'data-placeholder', placeholder
-        i.attr 'value', placeholder
+        i.data 'placeholder', placeholder
+        i.prop 'value', placeholder
         i.addClass 'rXI---placeheld'
         i.removeAttr 'size'
         updateWidth.call i.get 0
         i.on 'keyup', updateWidth
         if placeholder is '...'
-            console.log '...'
             i.on 'focus', (event) ->
                 x = $ @
                 x.removeClass 'rXI---placeheld'
-                x.attr 'value', '' if x.attr('value') is '...'
+                x.prop 'value', '' if x.prop('value') is '...'
             i.on 'blur', (event) ->
                 x = $ @
-                if not x.val()
+                if not x.prop('value')
                     x.addClass 'rXI---placeheld'
-                    x.attr 'value', '...'
+                    x.prop 'value', '...'
         else
             i.on 'focus', (event) -> $(@).removeClass 'rXI---placeheld'
             i.on 'blur', (event) ->
                 x = $ @
-                if x.attr('data-placeholder') is x.attr('value')
+                if x.data('placeholder') is x.prop('value')
                     x.addClass 'rXI---placeheld'
+                if not x.prop('value')
+                    x.addClass 'rXI---placeheld'
+                    x.prop('value', x.data 'placeholder')
+
