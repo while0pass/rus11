@@ -6,18 +6,9 @@ do ($=jQuery) ->
         y = x.parent().siblings '.widthGauge' unless y.get(0)
 
         if not x.prop('value') and x.data('placeholder') isnt '...'
-            x.prop('value', x.data 'placeholder')
         text = x.prop('value') or '...'  # NOTE: Дефолтное значение '...'
             # выбрано не случайно. Если поле не заполнено, у него выставится
             # такая ширина, как если бы там стоял стандартный текст-заменитель.
-
-        x.attr 'value', text  # Обновление html-атрибута обязательно, если мы
-            # хотим, чтобы мудловский модуль тестов правильно подхватывал
-            # значения из инпутов. Иначе, кажется, можно было бы
-            # довольствоваться тем, что изменено свойство (!) ``value``
-            # DOM-элементов. Но для Мудла этого не достаточно, для него надо
-            # чтобы изменен был также html-атрибут ``value`` на инпуте.
-
         y.html text
 
         width = y.innerWidth()
@@ -32,8 +23,9 @@ do ($=jQuery) ->
         i.append '<span class="widthGauge"/>'
         i = i.find 'input'
         i.data 'placeholder', placeholder
-        i.prop 'value', placeholder
-        i.addClass 'rXI---placeheld'
+        if not i.prop('value')
+            i.prop 'value', placeholder
+            i.addClass 'rXI---placeheld'
         i.removeAttr 'size'
         updateFormWidget.call i.get 0
         i.on 'keyup', updateFormWidget
@@ -41,7 +33,8 @@ do ($=jQuery) ->
             i.on 'focus', (event) ->
                 x = $ @
                 x.removeClass 'rXI---placeheld'
-                x.prop 'value', '' if x.prop('value') is '...'
+                if x.prop('value') is '...'
+                    x.prop 'value', ''
             i.on 'blur', (event) ->
                 x = $ @
                 if not x.prop('value')
