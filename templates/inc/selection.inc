@@ -1,11 +1,10 @@
 
 <div class="rXI---markers">
-    <a class="rXI---1Marker"><span></span>
-        Одиночные деепричастия
+{% for MARKER in MARKERS %}
+    <a class="rXI---{{ loop.index }}Marker"><span></span>
+        {{ MARKER }}
     </a>
-    <a class="rXI---2Marker"><span></span>
-        Деепричастные обороты
-    </a>
+{% endfor %}
 </div>
 
 <script type="application/javascript"> var rXI$h = []; </script>
