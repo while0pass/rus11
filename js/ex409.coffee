@@ -6,6 +6,7 @@ do ($=jQuery) ->
         y = x.parent().siblings '.widthGauge' unless y.get(0)
 
         if not x.prop('value') and x.data('placeholder') isnt '...'
+            x.prop('value', x.data 'placeholder')
         text = x.prop('value') or '...'  # NOTE: Дефолтное значение '...'
             # выбрано не случайно. Если поле не заполнено, у него выставится
             # такая ширина, как если бы там стоял стандартный текст-заменитель.
