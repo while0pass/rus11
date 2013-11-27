@@ -1,5 +1,8 @@
 do ($=jQuery, q=rXI$h) ->
 
+  markerClasses = ($(cls).prop('class') for cls in $('.rXI---markers a'))
+  markerClasses = markerClasses.join ' '
+
   whichMarker = null
   # Обработчики щелчка мышки для выбора маркера
   $('.rXI---markers a').click ->
@@ -8,10 +11,10 @@ do ($=jQuery, q=rXI$h) ->
           return
       cls = x.attr 'class'
       if $('#rXI---main').hasClass cls
-          $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
+          $('#rXI---main').removeClass markerClasses
           whichMarker = null
       else
-          $('#rXI---main').removeClass('rXI---1Marker rXI---2Marker')
+          $('#rXI---main').removeClass(markerClasses)
                           .addClass(cls)
           whichMarker = cls
       window.getSelection().removeAllRanges()
@@ -173,7 +176,7 @@ do ($=jQuery, q=rXI$h) ->
                       else
                           startOrder < order <= endOrder
               erase = ->
-                  $(@).removeClass('rXI---1Marker rXI---2Marker')
+                  $(@).removeClass(markerClasses)
                       .removeAttr('data-seId')
               highlight = ->
                   erase.call(@)
@@ -369,7 +372,7 @@ do ($=jQuery, q=rXI$h) ->
           slugInput.toggleClass 'correct'
           if slugInput.hasClass 'correct'
               $('#rXI---main').addClass('answers')
-              $('#rXI---main').removeClass 'rXI---1Marker rXI---2Marker'
+              $('#rXI---main').removeClass markerClasses
               whichMarker = null
               textareaInput.html markupWordsAndBlanks q.te
               textareaInput.attr 'contenteditable', false
