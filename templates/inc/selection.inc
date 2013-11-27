@@ -10,6 +10,7 @@
 
 <script type="application/javascript"> var rXI$h = []; </script>
 
+<div class="rXI---allSentences">
 {% for item in DATASET %}
 <div class="rXI---sentence">
     <div class="rXI---textarea" contenteditable="true"></div>
@@ -53,3 +54,4 @@
     </script>
 </div>
 {% endfor %}
+</div>
