@@ -37,6 +37,7 @@ do ($=jQuery, q=rXI$h) ->
           '.': 8
           '«': 9
           '»': 9
+          '…': 11
       root = $ root
       textareaInput = root.find('.rXI---textarea')
       slugInput = root.find('.rXI---slug').find 'input[type="text"]'
@@ -204,7 +205,7 @@ do ($=jQuery, q=rXI$h) ->
           text.match /[а-яА-Я0-9]+/g
 
       getBlanks = (text) ->
-          blanks = text.match /[\s\.\,\:\;\-\u2013\u2014\?\!]+|^/g
+          blanks = text.match /[\s\.\,\:\;\-\u2013\u2014\?\!…]+|^/g
           words = getWords text
           blanks.push '' if blanks.length is words.length
           throw new Error 'b!w+1' if blanks.length isnt words.length + 1
