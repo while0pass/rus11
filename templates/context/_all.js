@@ -1,6 +1,7 @@
 var now = new Date(),
     twoDigits = function (x) { return ('0' + x).slice(-2); },
-    version = require('util').format('v%s.%s.%s.%s',
+    version = require('util').format('v%s.%s.%s-%s.%s',
+        now.getFullYear(),
         twoDigits(now.getMonth() + 1),
         twoDigits(now.getDate()),
         twoDigits(now.getHours()),
