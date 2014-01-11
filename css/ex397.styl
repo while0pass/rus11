@@ -142,21 +142,16 @@ for $i in (1 'blue' $blue $bluePastel) (2 'green' $green $greenPastel) (3 'red' 
 
     #rXI---main
         &.rXI---{ $i[0] }Marker
-            cursor: _cursor
+            cursor: $_cursor
 
             .rXI---textarea
             .rXI---textarea *
-                cursor: $_cursor
-
                 &::selection
                     background-color: $i[3]
                     color: $i[2]
 
             .rXI---markers a.rXI---{ $i[0] }Marker span
                 opacity: 0.2
-
-                &:hover
-                    cursor: $_cursor
 
         .rXI---textarea .rXI---{ $i[0] }Marker.rXI---word
         .rXI---textarea .rXI---{ $i[0] }Marker.rXI---nonWord
