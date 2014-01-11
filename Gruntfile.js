@@ -47,6 +47,7 @@ module.exports = function (grunt) {
     cssUrlRewrite: {
         options: {
             deleteAfterEncoding: false,
+            fetchExternal: false,
         },
         target: {
             expand: true,

@@ -1,3 +1,8 @@
+{% if TASK %}
+<div class="rXI---note">
+    {{ TASK | join("") }}
+</div>
+{% endif %}
 
 <div class="rXI---markers">
 {% for MARKER in MARKERS %}
