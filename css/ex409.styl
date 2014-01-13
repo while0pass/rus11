@@ -18,13 +18,19 @@ $padding = (0.7 * $padX) $padX
     font-size: 12pt
     margin: auto
     max-width: 40em
+    counter-reset: sentence
 
     .rXI---note
-        padding: $padding
-        background-color: rgb(255, 255, 204)
-        color: rgb(0, 0, 153)
+        padding: 28px 20px 15px 210px
+        background: $beigePastel url(http://iclass.home-edu.ru/file.php/918/Icons/for_test.png) no-repeat 15px 20px
+        color: $blue
         border-radius: 10px
         margin-bottom: 2em
+        min-height: 140px
+        box-sizing: border-box
+
+        p
+            margin: 0 0 10px 0
 
 .rXI---author
     font-style: italic
@@ -35,7 +41,7 @@ $padding = (0.7 * $padX) $padX
     &::selection
         background-color: $beigePastel
 
-.rXI---sentences
+.rXI---allSentences
     background-color: $beigePastel
     color: $beige
     border: none
@@ -49,11 +55,27 @@ $padding = (0.7 * $padX) $padX
 
     &::selection
     & *::selection
-        background-color: transparent
-        color: transparent
+        background-color: inherit
+        color: inherit
 
     .nobr
         white-space: nowrap
+
+.rXI---sentence
+    outline: none
+    position: relative
+    margin-bottom: 12px
+    line-height: 1.5em
+    margin-left: 1.5em
+
+    &:before
+    &::before
+        color: $beige
+        opacity: 0.7
+        counter-increment: sentence
+        content: counter(sentence) "."
+        position: absolute
+        left: -1.8em
 
 .rXI---sentence:not(:last-of-type)
     margin-bottom: 10px
@@ -62,14 +84,18 @@ $padding = (0.7 * $padX) $padX
     font-size: inherit
     color: inherit
     position: relative
+    font-family: inherit
 
     & > span.widthGauge
         white-space: pre
         position: absolute
-        visibility: hidden
         margin: 0
         padding: 0
+        padding-left: 1px
         border: none
+        visibility: hidden
+        font-size: inherit
+        font-family: inherit
 
     img
         display: none
@@ -83,6 +109,7 @@ $padding = (0.7 * $padX) $padX
         border-radius: 4px
         outline: none
         font-size: inherit
+        font-family: inherit
 
         &.rXI---placeheld
             background-color: $redPastel
