@@ -1,6 +1,8 @@
-{% if TASK %}
+{% if TASKS %}
 <div class="rXI---note">
-    {{ TASK | join("") }}
+{% for TASK in TASKS %}
+    <p>{{ TASK }}</p>
+{% endfor %}
 </div>
 {% endif %}
 
