@@ -1,6 +1,6 @@
 {
   "name": "rus11",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-jinja": "~0.3.0",
@@ -8,7 +8,7 @@
     "grunt-contrib-stylus": "~0.8.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-css-url-rewrite": "~0.3.2",
+    "grunt-css-url-rewrite": "~0.3.3",
     "grunt-csso-alt": "~0.1.0",
     "grunt-contrib-coffee": "~0.7.0"
   }
