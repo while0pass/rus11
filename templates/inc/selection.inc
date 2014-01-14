@@ -1,18 +1,20 @@
 {% if TASKS %}
-<div class="rXI---note">
-{% for TASK in TASKS %}
-    <p>{{ TASK }}</p>
-{% endfor %}
-</div>
+    <div class="rXI---note">
+        {% for TASK in TASKS %}
+            <p>{{ TASK }}</p>
+        {% endfor %}
+    </div>
 {% endif %}
 
-<div class="rXI---markers">
-{% for MARKER in MARKERS %}
-    <a class="rXI---{{ loop.index }}Marker"><span></span>
-        {{ MARKER }}
-    </a>
-{% endfor %}
-</div>
+{% if MARKERS %}
+    <div class="rXI---markers">
+        {% for MARKER in MARKERS %}
+            <a class="rXI---{{ loop.index }}Marker"><span></span>
+                {{ MARKER }}
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
 
 <script type="application/javascript"> var rXI$h = []; </script>
 
@@ -55,8 +57,10 @@
                 te: '{{ item.TEXT }}',
                 pu: {{ item.PUNCT }},
                 ma: {{ item.MASK }},
+            {% if item.SELECT %}
                 se: [ {% for S in item.SELECT %} '{{ S }}', {% endfor %} ],
-            });
+            {% endif %}
+        });
     </script>
 </div>
 {% endfor %}
