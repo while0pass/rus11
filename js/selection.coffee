@@ -38,6 +38,7 @@ do ($=jQuery, q=rXI$h) ->
           '«': 9
           '»': 9
           '…': 11
+          '...': 11
       root = $ root
       textareaInput = root.find('.rXI---textarea')
       slugInput = root.find('.rXI---slug').find 'input[type="text"]'
