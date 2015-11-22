@@ -63,3 +63,19 @@ $padding = (0.7 * $padX) $padX
         font-size: 11pt !important
         text-indent: 1.5em
         margin-left: 1.5em
+
+.rXI---syntSubject
+    border-bottom: 1px solid black
+
+.rXI---syntPredicate
+    border-bottom: 1px solid black
+    position: relative
+
+    &:before
+    &::before
+        position: absolute
+        content: ''
+        left: 0
+        width: 100%
+        border-bottom: 1px solid black
+        bottom: -3px
